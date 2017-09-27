@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       return Promise.all([
         // Inserts seed entries
-        knex('orders').insert({completed: true}),
+        knex('orders').insert({foodid: 37, completed: true}),
       ]);
     });
 };

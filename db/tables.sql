@@ -16,7 +16,7 @@ CREATE TABLE orders (
   id         BIGSERIAL  PRIMARY KEY,
   vendorid   BIGSERIAL  NOT NULL,
   userid     BIGSERIAL  NOT NULL,
-  foodid     BIGSERIAL  NOT NULL,
+  foodid     varchar    NOT NULL,
   completed  boolean    NOT NULL
 );
 
