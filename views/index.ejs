@@ -1,9 +1,27 @@
 
    <% include partials/_header %>
 
-  </head>
+   <body>
+      <div id="menu-container"> 
+          <section style = "margin-top: 30px;" class="menu"> 
+              <section class="item-picture"><img id="item-picture" src=""></section>
+              <div class="food-body"> 
+                  <div class="food-title"> 
+                    <p class="food-name"> Pizza</p>
+                    <p class="food-price">$14.99</p>
+                  </div>
+                  <section class="food-description"> Thin Crust Pepperoni Cheese Pizza, 17" </section>
+              </div>
+              <section> 
+                  <div class="decrease">-</div>
+                  <div class="quantity">1</div>
+                  <div class="increase">+</div>
+             </section>  
+             <section> 
+               <a class="order-button" href="/orderid">ADD TO ORDER</a>
+             </section>
+          </section>
+      </div>
+    </body>
+  </html>
 
-  <body>
-    <h1>Hello World!</h1>
-  </body>
-</html>
