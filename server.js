@@ -52,10 +52,20 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-// Home page
+// Munu page
 app.get("/menu", (req, res) => {
   res.render("menu");
 });
+
+// Orders list of User
+app.get("/users/:id/orders") {
+  res.render("orders_index");
+}
+
+// A particular Order of User
+app.get("/users/:id/orders/:id") {
+  res.render("orders_show");
+}
 
 app.listen(PORT, () => {
   console.log("mzr_foodapp listening on port " + PORT);
