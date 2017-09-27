@@ -58,14 +58,14 @@ app.get("/menu", (req, res) => {
 });
 
 // Orders list of User
-app.get("/users/:id/orders") {
+app.get("/users/:id/orders", (req, res) => {
   res.render("orders_index");
-}
+});
 
 // A particular Order of User
-app.get("/users/:id/orders/:id") {
+app.get("/users/:id/orders/:id", (req, res) => {
   res.render("orders_show");
-}
+});
 
 app.listen(PORT, () => {
   console.log("mzr_foodapp listening on port " + PORT);
