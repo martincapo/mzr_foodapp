@@ -52,9 +52,19 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-// Home page
+// Munu page
 app.get("/menu", (req, res) => {
   res.render("menu");
+});
+
+// Orders list of User
+app.get("/users/:id/orders", (req, res) => {
+  res.render("orders_index");
+});
+
+// A particular Order of User
+app.get("/users/:id/orders/:id", (req, res) => {
+  res.render("orders_show");
 });
 
 app.listen(PORT, () => {
