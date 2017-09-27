@@ -1,15 +1,15 @@
 CREATE TABLE users (
   id          BIGSERIAL PRIMARY KEY,
   email       text,
-  phoneNumber INT,
+  phoneNumber varchar,
   password    varchar
 );
 
 CREATE TABLE vendors (
   id            BIGSERIAL  PRIMARY KEY,
   address       text       NOT NULL,
-  phoneNumber   INT        NOT NULL,
-  password      varchar    NOT NULL
+  phoneNumber   varchar    NOT NULL,
+  password      varchar
 );
 
 CREATE TABLE orders (
