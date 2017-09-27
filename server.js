@@ -17,7 +17,7 @@ const knexLogger  = require('knex-logger');
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const ordersRoutes = require("./routes/orders");
-const foodsRoutes = require("./routes/foods");
+const foodRoutes = require("./routes/food");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -44,7 +44,7 @@ app.use("/api/users", usersRoutes(knex));
 app.use("/api/orders", ordersRoutes(knex));
 
 // Mount all resource routes
-app.use("/api/foods", foodsRoutes(knex));
+app.use("/api/food", foodRoutes(knex));
 
 
 // Home page
@@ -53,8 +53,8 @@ app.get("/", (req, res) => {
 });
 
 // Munu page
-app.get("/menu", (req, res) => {
-  res.render("menu");
+app.get("/menus", (req, res) => {
+  res.render("menus");
 });
 
 // Orders list of User
