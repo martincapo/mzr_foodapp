@@ -5,3 +5,39 @@ body {
     color: #244751;
   }
 }
+
+.food-title {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  background-color: #E3E3E3;
+}
+
+.quantityButton {
+  display: flex;
+  justify-content: space-between;
+  width: 70px;
+  height: 70px;
+  margin-left: 30px;
+}
+
+.order-button {
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  height: 80px;
+  border: 1px solid grey; 
+  align-items: center;
+}
+
+#orderButton-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 100px 0; 
+}
