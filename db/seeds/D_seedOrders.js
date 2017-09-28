@@ -21,6 +21,6 @@ exports.seed = function(knex, Promise) {
     }
 
     function createOrder(user, food) {
-      return knex('orders').insert({vendorid: 5, userid: users.id, completed: true})
+      return knex('orders').insert({vendor_id: 5, user_id: users.id, completed: true})
     }
 };

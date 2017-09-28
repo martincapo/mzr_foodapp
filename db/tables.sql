@@ -1,36 +1,44 @@
+DROP TABLE users_orders;
+DROP TABLE food;
+DROP TABLE orders;
+DROP TABLE vendors;
+DROP TABLE users;
+
 CREATE TABLE users (
   id           BIGSERIAL PRIMARY KEY,
-  email        text,
-  phone_number text,
-  password     text
+  name         TEXT,
+  email        TEXT,
+  phone_number TEXT,
+  password     TEXT
 );
 
 CREATE TABLE vendors (
-  id            integer    PRIMARY KEY,
-  address       text       NOT NULL,
-  phoneNumber   text       NOT NULL,
-  password      text
+  id            BIGSERIAL  PRIMARY KEY,
+  name          TEXT       NOT NULL,
+  address       TEXT       NOT NULL,
+  phone_number  TEXT       NOT NULL,
+  password      TEXT
 );
 
 CREATE TABLE orders (
-  id         BIGSERIAL     PRIMARY KEY,
-  vendorid   Bigint        references vendors,
-  userid     Bigint        references users,
-  completed  boolean       NOT NULL
+  id         BIGSERIAL      PRIMARY KEY,
+  vendor_id   BIGINT        references vendors,
+  user_id     BIGINT        references users,
+  completed  boolean        NOT NULL
 );
 
 CREATE TABLE food (
   id            BIGSERIAL  PRIMARY KEY,
-  name          text       NOT NULL,
+  name          TEXT       NOT NULL,
   price         DECIMAl    NOT NULL,
-  vendorid      integer    NOT NULL,
-  description   text       NOT NULL
+  vendor_id     BIGINT     NOT NULL,
+  description   TEXT       NOT NULL
 );
 
 CREATE TABLE users_orders (
   id         BIGSERIAL     PRIMARY KEY,
-  orderid    Bigint        references orders,
-  foodid     Bigint        references food
+  order_id    BIGINT       references orders,
+  food_id     BIGINT       references food
 );
 
 
