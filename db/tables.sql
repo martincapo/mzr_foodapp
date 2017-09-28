@@ -1,8 +1,8 @@
-DROP TABLE users_orders;
-DROP TABLE food;
-DROP TABLE orders;
-DROP TABLE vendors;
-DROP TABLE users;
+DROP TABLE IF EXISTS orders_food CASCADE;
+DROP TABLE IF EXISTS food CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS vendors CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
   id           BIGSERIAL PRIMARY KEY,
@@ -35,7 +35,7 @@ CREATE TABLE food (
   description   TEXT       NOT NULL
 );
 
-CREATE TABLE users_orders (
+CREATE TABLE orders_food (
   id         BIGSERIAL     PRIMARY KEY,
   order_id    BIGINT       references orders,
   food_id     BIGINT       references food
