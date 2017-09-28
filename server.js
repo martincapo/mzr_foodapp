@@ -67,6 +67,11 @@ app.get("/users/:id/orders/:id", (req, res) => {
   res.render("orders_show");
 });
 
+//orderMessage page
+app.get("/orderMessage", (req, res) => {
+  res.render("orderMessage")
+});
+
 app.listen(PORT, () => {
   console.log("mzr_foodapp listening on port " + PORT);
 });
