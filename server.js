@@ -57,6 +57,11 @@ app.get("/menu", (req, res) => {
   res.render("menu");
 });
 
+//orderMessage page
+app.get("/orderMessage", (req, res) => {
+  res.render("orderMessage")
+});
+
 app.listen(PORT, () => {
   console.log("mzr_foodapp listening on port " + PORT);
 });
