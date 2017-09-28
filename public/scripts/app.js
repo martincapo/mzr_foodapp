@@ -4,7 +4,7 @@ $(function() {
   //create menu element in html//
   const createMenuElement = (food) => {
     return `<section style = "margin-top: 30px;" class="menu"> 
-       <section class="item-picture"> <img id="item-picture" src=""></section>
+       <section class="item-picture"> <img id="item-picture" src="/images/beef_jerky.jpg"></section>
        <div class="food-body"> 
        <div class="food-title"> 
          <p class="food-name">${food.name} </p>
@@ -99,6 +99,12 @@ $(function() {
 
   initialCall()
 
-
+  // {
+  //   name: 'Spicy Cold Noodle',
+  //   price: 6.15, 
+  //   vendorid: 5, 
+  //   description: 'Whole wheat spicy noodles',
+  //   image: 'beef_jerky.jpg'
+  // }
 })
 
