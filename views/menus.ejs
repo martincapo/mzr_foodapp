@@ -1,27 +1,39 @@
   <% include partials/_header %>
 
-  <body>
+  <body class="col-offset-3">
+    <div class="col-lg-6">
     <h1 style = "margin-top: 80px;"> Menu </h1>
-    <div id="menu-container"> 
-        <!-- <section style = "margin-top: 30px;" class="menu"> 
+    <table class="table table-hover table-bordered">
+      <thead>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th colspan="3">QTY</th>
+      </thead>
+      <tbody id="menu-container">
+
+        <!-- <section style = "margin-top: 30px;" class="menu">
             <section class="item-picture"><img id="item-picture" src=""></section>
-            <div class="food-body"> 
-                <div class="food-title"> 
+            <div class="food-body">
+                <div class="food-title">
                   <p class="food-name"> Pizza</p>
                   <p class="food-price">$14.99</p>
                 </div>
                 <section class="food-description"> Thin Crust Pepperoni Cheese Pizza, 17" </section>
             </div>
-            <section> 
+            <section>
                 <div class="decrease">-</div>
                 <div class="quantity">1</div>
                 <div class="increase">+</div>
            </section>   -->
+      </tbody>
+    </table>
+    <div class="col-lg-6">
+        <a class="order-button" href="/orderid">
+          <button class="btn btn-primary"> ADD TO ORDER </button>
+        </a>
     </div>
-        <section id="orderButton-container"> 
-             <a class="order-button" href="/orderid">ADD TO ORDER</a>
-           </section>
-        </section>
-  
+</br></br></br></br></br>
+  </div>
   </body>
 </html>
