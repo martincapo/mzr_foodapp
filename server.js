@@ -62,6 +62,10 @@ app.get("/", (req, res) => {
 // Munu page
 app.get("/menus", (req, res) => {
 
+  if(req.order){
+    Cookies.remove('order');
+  }
+
   let userId = req.session.user_id;
   let templateVars = {
     user: userId
@@ -99,9 +103,6 @@ app.get("/login/:id", (req, res) => {
 });
 
 app.get("/orders/:id", (req, res) => {
-  if(req.order){
-    Cookies.remove('order');
-  }
   res.render("order")
-}
+});
 

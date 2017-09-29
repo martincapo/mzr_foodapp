@@ -15,7 +15,7 @@ $(function() {
               <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
             </button>
           </td>
-          <td>
+          <td class="quantityClass">
 
              <p data-quantity=0  data-foodid=${food.id} class="quantity" id="quantity${food.id}">0</p>
           </td>
@@ -63,6 +63,8 @@ $(function() {
   //    <p class="price"> ${order.}</p>
   //  </section>`
 
+  let cart = {};
+
   const renderMenuElement = (foods) => {
     foods.forEach((food) => {
       const $menu = createMenuElement(food)
@@ -71,14 +73,33 @@ $(function() {
       $(`#decrease${food.id}`).on('click', function(event) {
         let quantity = $(`#quantity${food.id}`)
         let previousNumber = Number(quantity.text())
+        let foodkey= "" + food.id;
+
+        if (foodkey in cart && cart[foodkey] > 0) {
+            cart[foodkey]--;
+        } else {
+            cart[foodkey] = 0;
+        }
+        console.log(cart)
         if(previousNumber !== 0) {
           quantity.data('quantity', previousNumber - 1).text(previousNumber - 1)
         }
       })
+
       // increase
       $(`#increase${food.id}`).on('click', function(event) {
         let quantity = $(`#quantity${food.id}`)
         let previousNumber = Number(quantity.text())
+        let foodkey= "" + food.id;
+
+        if (foodkey in cart) {
+            cart[foodkey]++;
+        } else {
+            cart[foodkey] = 1;
+        }
+
+        console.log(cart)
+
         quantity.attr('data-quantity', previousNumber + 1).text(previousNumber + 1)
         quantity.text(previousNumber + 1)
 
@@ -122,21 +143,12 @@ $(function() {
   //     createOrderElement(orders)
   //   // }
   // })
-let cart = [];
 
-$('#cookies').on('click', function(){
-  $('.quantity').each(function(get){
 
-   let getId = $(this).data('foodid');
-   let getQuantity = $(this).data('quantity');
-   if (getQuantity == 0){
-
-    }else{
-      cart.push({id: getId, quantity: getQuantity});
-    }
-  });
+$('#addToOrder').on('click', function(){
   console.log(cart)
   Cookies.set('order', cart);
+  window.location.replace("/orders/1")
   })
 
   initialCall()
