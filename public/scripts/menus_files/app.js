@@ -3,11 +3,12 @@
 
 $(function() {
 
+  $('#cookies').on('click', function(){
+  Cookies.set('John', '2');
+    alert(Cookies.get('John'));
+  });
   //create menu element in html//
-  const createMenuElement = (food, cart) => {
-
-    let quantity = cart[food.id] || 0;
-
+  const createMenuElement = (food) => {
     return `<tr>
           <td class="food-name">${food.name} </td>
           <td >$${food.price}</td>
@@ -17,9 +18,9 @@ $(function() {
               <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
             </button>
           </td>
-          <td class="quantityClass">
+          <td>
 
-             <p data-quantity=0  data-foodid=${food.id} class="quantity" id="quantity${food.id}">${quantity}</p>
+             <p data-quantity=0  data-foodid=${food.id} class="quantity" id="quantity${food.id}">0</p>
           </td>
           <td>
             <button type="button" id="increase${food.id}" class="btn btn-default btn-xs" aria-label="Left Align">
@@ -65,47 +66,22 @@ $(function() {
   //    <p class="price"> ${order.}</p>
   //  </section>`
 
-  let cart = {};
-  if (Cookies.get('order')) {
-    cart = JSON.parse(Cookies.get('order'))
-  }
-
   const renderMenuElement = (foods) => {
     foods.forEach((food) => {
-      const $menu = createMenuElement(food, cart)
+      const $menu = createMenuElement(food)
       $('#menu-container').prepend($menu)
       // for each food, you are creating an event listener
       $(`#decrease${food.id}`).on('click', function(event) {
         let quantity = $(`#quantity${food.id}`)
         let previousNumber = Number(quantity.text())
-        let foodkey= "" + food.id;
-
-        if (foodkey in cart && cart[foodkey] > 0) {
-            cart[foodkey]--;
-        } else {
-            cart[foodkey] = 0;
-        }
-        console.log(cart)
         if(previousNumber !== 0) {
           quantity.data('quantity', previousNumber - 1).text(previousNumber - 1)
         }
-
       })
-
       // increase
       $(`#increase${food.id}`).on('click', function(event) {
         let quantity = $(`#quantity${food.id}`)
         let previousNumber = Number(quantity.text())
-        let foodkey= "" + food.id;
-
-        if (foodkey in cart) {
-            cart[foodkey]++;
-        } else {
-            cart[foodkey] = 1;
-        }
-
-        console.log(cart)
-
         quantity.attr('data-quantity', previousNumber + 1).text(previousNumber + 1)
         quantity.text(previousNumber + 1)
 
@@ -149,18 +125,28 @@ $(function() {
   //     createOrderElement(orders)
   //   // }
   // })
+let cart = [];
 
+$(function() {
 
-$('#addToOrder').on('click', function(){
-  // Cookies.remove('order')
-  console.log(cart)
-  Cookies.set('order', cart);
-  window.location.replace("/orders/1")
-  })
-
-  initialCall()
-
+  $('.quantity').each(function(get){
+   var getId = $(this).data('foodid');
+   var getQuantity = $(this).data('quantity');
+      cart.push({id: getId, quantity: getQuantity});
+   });
 });
 
 
+// $(`#cookies`).on('click', function(event) {
+//   let cart = {}
+//   $("#quantity9").find('quantity')
+//   console.log(cart);
+// });
+
+// }
+
+  initialCall()
+
+
+})
 
