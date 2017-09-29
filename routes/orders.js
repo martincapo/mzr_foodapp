@@ -5,10 +5,24 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
-  route.post("/", (req, res) => {
+  router.post("/", (req, res) => {
+    console.log(req.body);
+    console.log(typeof(req.body.user_id));
+
+    let order = {
+      user_id: req.body.user_id,
+      vendor_id: req.body.vendor_id,
+      est_mins: 0,
+      completed: false,
+      order_date: new Date(new Date().getTime() * 1000)
+    }
+
     knex('orders')
-    .insert({user_id: req.user_id})
-    .insert({vendor_id: req.vendor_id});
+        .insert(order)
+        .then(data => {
+          console.log('Orders is done');
+          res.redirect('/api/orders');
+        });
   })
 
 // full list of orders
@@ -20,6 +34,7 @@ module.exports = (knex) => {
         .from('orders')
         .leftJoin('vendors', 'orders.vendor_id', 'vendors.id')
         .leftJoin('users', 'orders.user_id', 'users.id')
+        .orderBy('orders.id', 'desc')
         .then((results) => {
           res.json(results);
         });

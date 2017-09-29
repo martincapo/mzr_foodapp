@@ -1,0 +1,55 @@
+<% include partials/_header %>
+
+</head>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('form').on('submit', function(e) {
+        e.preventDefault();
+        console.log($(this).attr('action'));
+
+        $.ajax({
+            method: "POST",
+            url: $(this).attr('action'),
+            data: JSON.stringify({
+                user_id: 50,
+                vendor_id: 5,
+                food: [
+                    {id: 110, qty: 5},
+                    {id: 111, qty: 2},
+                    {id: 112, qty: 1}
+                ]
+            }),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(data, responseCode, jqXHR) {
+
+            }
+        })
+      });
+    })
+
+  </script>
+
+  <body>
+    <div id="order-container">
+    <h1 style = "margin-top: 80px;"> Order </h1>
+
+    <p style="padding-left: 10px">Ex.</p>
+    <section style="padding-left: 30px">
+        <p>var order = {</p>
+        <p style="padding-left: 80px">user_id: 55,</p>
+        <p style="padding-left: 80px">vendor_id: 5,</p>
+        <p style="padding-left: 80px">food: [{id: 92, qty: 5}, {id: 93, qty: 2}, {id: 94, qty: 1}]</p>
+        <p style="padding-left: 60px">}</p>
+    </section>
+
+    <div class="col-lg-3">
+
+      <form action="/api/orders" method="POST">
+        <button class="btn btn-danger" > PLACE ORDER </button>
+      </form>
+    </div>
+  </body>
+</html>
+
+
