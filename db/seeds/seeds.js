@@ -67,13 +67,13 @@ exports.seed = function(knex, Promise) {
   //orders ::: save only uesr_id & vendor_id
     .then(() => {
       let insetToOrders = [];
-      let estMins = Math.floor((Math.random() * 30) + 10);
-      let completed = true;
-      if(estMins > 30) {
-        completed = false;
-      }
       usersArr.forEach(user => {
         foodArr.forEach(food => {
+          let estMins = Math.floor((Math.random() * 30) + 10);
+          let completed = true;
+          if(estMins > 30) {
+            completed = false;
+          }
           insetToOrders.push(knex('orders').insert({vendor_id: 5, user_id: user.id, est_mins: estMins, completed: completed}));
         })
       });
