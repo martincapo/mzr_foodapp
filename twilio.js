@@ -42,7 +42,7 @@ module.exports = (knex) => {
         let options = {
             to: vendorNumber,
             from: '+12898135702',
-            url: 'http://1857aabe.ngrok.io/orderMessage'
+            url: 'http://' + request.headers.host + '/orderMessage'
         }
 
         client.calls.create(options)
