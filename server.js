@@ -37,6 +37,7 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -84,6 +85,7 @@ app.get("/users/:id/orders/:id", (req, res) => {
 app.get("/orderMessage", (req, res) => {
   res.render("orderMessage")
 });
+
 
 app.listen(PORT, () => {
   console.log("mzr_foodapp listening on port " + PORT);
