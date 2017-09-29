@@ -3,8 +3,6 @@ DROP TABLE IF EXISTS food CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS vendors CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS users_orders CASCADE;
-
 
 CREATE TABLE users (
   id           BIGSERIAL PRIMARY KEY,
@@ -27,7 +25,8 @@ CREATE TABLE orders (
   vendor_id   BIGINT        references vendors,
   user_id     BIGINT        references users,
   est_mins    INTEGER        NOT NULL,
-  completed   BOOLEAN        NOT NULL
+  completed   BOOLEAN        NOT NULL,
+  order_date TIMESTAMP
 );
 
 CREATE TABLE food (
@@ -35,7 +34,8 @@ CREATE TABLE food (
   name          TEXT       NOT NULL,
   price         DECIMAl    NOT NULL,
   vendor_id     BIGINT     NOT NULL,
-  description   TEXT       NOT NULL
+  description   TEXT       NOT NULL,
+  food_img      TEXT
 );
 
 CREATE TABLE orders_food (

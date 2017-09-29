@@ -31,7 +31,7 @@ module.exports = (knex) => {
         .where('orders_food.order_id', req.params.id)
         .then((results) => {
           res.json(results);
-        });
+        })
   })
 
 // order list of a particular user
