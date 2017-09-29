@@ -41,7 +41,8 @@ CREATE TABLE food (
 CREATE TABLE orders_food (
   id         BIGSERIAL     PRIMARY KEY,
   order_id    BIGINT       references orders,
-  food_id     BIGINT       references food
+  food_id     BIGINT       references food,
+  qty        INTEGER       NOT NULL
 );
 
 

@@ -90,7 +90,7 @@ exports.seed = function(knex, Promise) {
       let insetToOrdersFood = [];
       ordersArr.forEach(order => {
         foodArr.forEach(food => {
-          insetToOrdersFood.push(knex('orders_food').insert({order_id: order.id, food_id: food.id}));
+          insetToOrdersFood.push(knex('orders_food').insert({order_id: order.id, food_id: food.id, qty: 1}));
         });
       });
       return Promise.all(insetToOrdersFood);
