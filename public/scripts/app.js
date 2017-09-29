@@ -4,7 +4,9 @@
 $(function() {
 
   //create menu element in html//
-  const createMenuElement = (food) => {
+  const createMenuElement = (food, cart) => {
+
+    let quantity = cart[food.id] || 0;
 
     return `<tr>
           <td class="food-name">${food.name} </td>
@@ -17,7 +19,7 @@ $(function() {
           </td>
           <td class="quantityClass">
 
-             <p data-quantity=0  data-foodid=${food.id} class="quantity" id="quantity${food.id}">0</p>
+             <p data-quantity=0  data-foodid=${food.id} class="quantity" id="quantity${food.id}">${quantity}</p>
           </td>
           <td>
             <button type="button" id="increase${food.id}" class="btn btn-default btn-xs" aria-label="Left Align">
@@ -64,10 +66,13 @@ $(function() {
   //  </section>`
 
   let cart = {};
+  if (Cookies.get('order')) {
+    cart = JSON.parse(Cookies.get('order'))
+  }
 
   const renderMenuElement = (foods) => {
     foods.forEach((food) => {
-      const $menu = createMenuElement(food)
+      const $menu = createMenuElement(food, cart)
       $('#menu-container').prepend($menu)
       // for each food, you are creating an event listener
       $(`#decrease${food.id}`).on('click', function(event) {
@@ -84,6 +89,7 @@ $(function() {
         if(previousNumber !== 0) {
           quantity.data('quantity', previousNumber - 1).text(previousNumber - 1)
         }
+
       })
 
       // increase
@@ -146,6 +152,7 @@ $(function() {
 
 
 $('#addToOrder').on('click', function(){
+  // Cookies.remove('order')
   console.log(cart)
   Cookies.set('order', cart);
   window.location.replace("/orders/1")
