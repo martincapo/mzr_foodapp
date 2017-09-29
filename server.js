@@ -63,10 +63,6 @@ app.get("/", (req, res) => {
 // Munu page
 app.get("/menus", (req, res) => {
 
-  if(req.order){
-    Cookies.remove('order');
-  }
-
   let userId = req.session.user_id;
   let templateVars = {
     user: userId
@@ -95,16 +91,53 @@ app.listen(PORT, () => {
 
 app.get("/login/:id", (req, res) => {
 
-  req.session.user_id = req.params.id;
+ var check = false;
+  for(var i in users) {
+    if(req.body.email === users[i].email) {
+      check = true;
+    }
+
+    if(check) {
+      bcrypt.compare(req.body.password, users[i].password, (err, matched) => {
+        if (matched) {
+          res.cookie('user_id', users[i].id)
+          res.redirect('/menus')
+        } else {
+          res.status(403).send('password or email does not match please try again.');
+        }
+      });
+    }
+  }
+  if(check === false) {
+    res.status(403).send('password or email does not match please try again.')
+  }
+});
+
+app.get("/login", (req, res) => {
   let userId = req.session.user_id;
   let templateVars = {
     user: userId
   };
-    res.render("menus", templateVars);
+
+  if(users[req.session.user_id] == undefined){
+    res.render("login", templateVars);
+  } else {
+    res.redirect("/menus");
+    // res.render("menus", templateVars)
+  }
 });
 
 app.get("/registration", (req, res) => {
-    res.render("registration");
+  let userId = req.session.user_id;
+  let templateVars = {
+    user: userId
+  };
+
+  if(users[req.session.user_id] == undefined){
+    res.render("registration", templateVars);
+  } else {
+    res.render("menus", templateVars)
+  }
 });
 
 let users = {};
@@ -114,7 +147,7 @@ app.post("/registration", (req, res) => {
     if(req.body.email.toLowerCase() == users[i].email.toLowerCase())
     {
       res.status(400).send("e-mail is already existing in user's database.");
-      res.redirect("/register");
+      res.redirect("/registration");
       return;
     }
   }
@@ -134,12 +167,50 @@ app.post("/registration", (req, res) => {
   users[result] = {id: result, email: req.body.email, password: hashedPassword}
   req.session.user_id = result;
   console.log(users);
-  res.redirect("/urls");
+  res.redirect("/menus");
+});
+
+app.post("/login", (req, res) => {
+  var check = false;
+  let userId = req.session.user_id;
+  let templateVars = {
+    user: userId
+  };
+
+  for(var i in users) {
+    if(req.body.email === users[i].email) {
+      check = true;
+    }
+
+    if(check) {
+      bcrypt.compare(req.body.password, users[i].password, (err, matched) => {
+        if (matched) {
+          req.session.user_id = users[i].id;
+          // res.cookie('user_id', users[i].id)
+          res.redirect('/menus')
+          return true;
+        } else {
+          res.status(403).send('password or email does not match please try again.');
+        }
+      });
+    }
+  }
+  if(check === false) {
+    res.status(403).send('password or email does not match please try again.')
+  }
+});
+
+
+app.get("/logout", (req, res) => {
+  delete req.session.user_id;
+  res.redirect("http://localhost:8080/");
 });
 
 app.get("/orders/:id", (req, res) => {
   res.render("order")
 });
+
+
 
 const possibleValues = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -148,6 +219,10 @@ function generateRandomString(length, chars) {
   for (var i = length; i > 0; --i){
     result += chars[Math.floor(Math.random() * chars.length)];
   }
+
+
+
+
   return result;
 }
 
