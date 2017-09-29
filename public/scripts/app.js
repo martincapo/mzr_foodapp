@@ -6,6 +6,7 @@ $(function() {
   //create menu element in html//
   const createMenuElement = (food) => {
 
+<<<<<<< HEAD
     return `<section style = "margin-top: 30px;" class="menu">
        <section class="item-picture"> <img id="item-picture" src="/images/beef_jerky.jpg"></section>
        <div class="food-body">
@@ -22,6 +23,8 @@ $(function() {
       </section>
     </section>`
 
+=======
+>>>>>>> d722c55e98be21d1e122b0549ccffe5dbef29e71
     return `<tr>
           <td class="food-name">${food.name} </td>
           <td >$${food.price}</td>
@@ -168,6 +171,7 @@ $(function() {
 
 
   initialCall()
+
 
 });
 
