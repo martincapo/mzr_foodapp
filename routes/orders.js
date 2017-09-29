@@ -4,7 +4,7 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (knex) => {
-
+// full list of orders
   router.get("/", (req, res) => {
     knex
         .select(['orders.id', 'orders.user_id', 'orders.vendor_id', 'orders.est_mins','orders.completed',
@@ -17,8 +17,25 @@ module.exports = (knex) => {
           res.json(results);
         });
   });
+  router.get("/users", (req, res) => {
+    res.redirect("/api/orders");
+  })
 
+// food list of a particular order
   router.get("/:id", (req, res) => {
+    knex
+        .select("*")
+        .from('orders_food')
+        .leftJoin('orders', 'orders_food.order_id', 'orders.id')
+        .leftJoin('food', 'orders_food.food_id', 'food.id')
+        .where('orders_food.order_id', req.params.id)
+        .then((results) => {
+          res.json(results);
+        });
+  })
+
+// order list of a particular user
+  router.get("/users/:id", (req, res) => {
     knex
         .select(['orders.id', 'orders.user_id', 'orders.vendor_id', 'orders.est_mins', 'orders.completed',
       'users.name AS user_name' , 'users.email AS user_email', 'users.phone_number AS user_phone_number',
