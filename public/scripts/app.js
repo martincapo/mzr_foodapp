@@ -139,8 +139,6 @@ $('#cookies').on('click', function(){
   Cookies.set('order', cart);
   })
 
-
-
   initialCall()
 
 });

@@ -98,3 +98,10 @@ app.get("/login/:id", (req, res) => {
     res.render("menus", templateVars);
 });
 
+app.get("/orders/:id", (req, res) => {
+  if(req.order){
+    Cookies.remove('order');
+  }
+  res.render("order")
+}
+
