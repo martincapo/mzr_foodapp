@@ -4,10 +4,11 @@ exports.seed = function(knex, Promise) {
   let usersArr = [];
   let foodArr = [];
   let ordersArr = [];
-  return
-    knex('users_orders').del()
+        // console.log('blah!!!!')
+  return (
+    knex('orders_food').del()
     .then(() => {
-      return knex('vendors').del();
+      return knex('orders').del();
     })
     .then(() => {
       return knex('food').del();
@@ -16,7 +17,7 @@ exports.seed = function(knex, Promise) {
       return knex('users').del();
     })
     .then(() => {
-      return kenx('orders').del();
+      return knex('vendors').del();
     })
 //users
     .then(() => {
@@ -66,9 +67,14 @@ exports.seed = function(knex, Promise) {
   //orders ::: save only uesr_id & vendor_id
     .then(() => {
       let insetToOrders = [];
+      let estMins = Math.floor((Math.random() * 30) + 10);
+      let completed = true;
+      if(estMins > 30) {
+        completed = false;
+      }
       usersArr.forEach(user => {
         foodArr.forEach(food => {
-          insetToOrders.push(knex('orders').insert({vendor_id: 5, user_id: user.id, completed: true}));
+          insetToOrders.push(knex('orders').insert({vendor_id: 5, user_id: user.id, est_mins: estMins, completed: completed}));
         })
       });
       return Promise.all(insetToOrders);
@@ -91,6 +97,7 @@ exports.seed = function(knex, Promise) {
     })
     .then(data => {
       ordersArr = data;
-      console.log('Seed : Orders_Food done')
-    });
+      console.log('Seed : Orders_Food done');
+    })
+  );
 };
