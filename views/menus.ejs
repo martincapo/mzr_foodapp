@@ -1,6 +1,39 @@
-  <% include partials/_header %>
-
+<% include partials/_header %>
   <body class="col-offset-3">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">MZR Food APP</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/menus">Menus</a></li>
+              <li><a href="/api/orders">Orders</a></li>
+              <li><a href="/api/users">Users</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+
+
+
+<% if(user === undefined) { %>
+<p> You need to be logged in and own this url to see this page </p>
+
+   <a href="/login/1">
+          <button class="login-btn"> login </button>
+        </a>
+
+<% } else { %>
+<div></div>
+
     <div class="col-lg-6">
     <h1 style = "margin-top: 80px;"> Menu </h1>
     <table class="table table-hover table-bordered">
@@ -11,29 +44,32 @@
         <th colspan="3">QTY</th>
       </thead>
       <tbody id="menu-container">
-
-        <!-- <section style = "margin-top: 30px;" class="menu">
-            <section class="item-picture"><img id="item-picture" src=""></section>
-            <div class="food-body">
-                <div class="food-title">
-                  <p class="food-name"> Pizza</p>
-                  <p class="food-price">$14.99</p>
-                </div>
-                <section class="food-description"> Thin Crust Pepperoni Cheese Pizza, 17" </section>
-            </div>
-            <section>
-                <div class="decrease">-</div>
-                <div class="quantity">1</div>
-                <div class="increase">+</div>
-           </section>   -->
       </tbody>
     </table>
     <div class="col-lg-6">
-        <a class="order-button" href="/orderid">
-          <button class="btn btn-primary"> ADD TO ORDER </button>
+        <a class="order-button" href="#">
+          <button class="btn btn-primary" id="cookies"> ADD TO ORDER </button>
         </a>
     </div>
 </br></br></br></br></br>
   </div>
+
+  <% } %>
+
+      <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+    <!-- App JS -->
+    <script type="text/javascript" src="/scripts/js.cookie.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
   </body>
 </html>
+
+

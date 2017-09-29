@@ -3,6 +3,10 @@
 
 $(function() {
 
+  $('#cookies').on('click', function(){
+  Cookies.set('John', '2');
+    alert(Cookies.get('John'));
+  });
   //create menu element in html//
   const createMenuElement = (food) => {
     return `<tr>
@@ -124,30 +128,25 @@ $(function() {
 let cart = [];
 
 $(function() {
-  console.log('is it?')
-  $('.quantity').each(function(get){
 
+  $('.quantity').each(function(get){
    var getId = $(this).data('foodid');
    var getQuantity = $(this).data('quantity');
-   console.log('this stuff', getQuantity)
-   if (getQuantity.quantity == 0){
-    }else{
       cart.push({id: getId, quantity: getQuantity});
-    }
-  })
-  });
-
-// $.cookie("people", JSON.stringify(cart));
-// var orders = $.parseJSON($.cookie("people"));
-
-//  $('#cookies').on('click', function(){
-
-//   Cookies.set('john', '2');
-//   })
+   });
+});
 
 
+// $(`#cookies`).on('click', function(event) {
+//   let cart = {}
+//   $("#quantity9").find('quantity')
+//   console.log(cart);
+// });
+
+// }
 
   initialCall()
 
-});
+
+})
 
