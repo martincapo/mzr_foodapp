@@ -29,10 +29,11 @@ module.exports = (knex) => {
     router.post('/order', function(request, response) {
         // knex
         //   .select("*")
-        //   .from("vendor")
+        //   .from("orders")
         //   .then(result => {
-        //     console.log(result)
-        //   }).catch(err => {
+        //     response.json(result)
+        //   })
+        //   .catch(err => {
         //       console.log(err)
         //   })
 
