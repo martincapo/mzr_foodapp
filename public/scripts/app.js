@@ -4,22 +4,6 @@ $(function() {
   //create menu element in html//
   const createMenuElement = (food) => {
 
-    return `<section style = "margin-top: 30px;" class="menu"> 
-       <section class="item-picture"> <img id="item-picture" src="/images/beef_jerky.jpg"></section>
-       <div class="food-body"> 
-       <div class="food-title"> 
-         <p class="food-name">${food.name} </p>
-         <p class="food-price">$${food.price}</p>
-       </div>
-       <section class="food-description">${food.description}</section>
-      </div>
-      <section class="quantityButton"> 
-       <div class="decrease" id="decrease${food.id}">-</div>
-       <div data-quantity=1 class="quantity" id="quantity${food.id}">0</div>
-       <div class="increase" id="increase${food.id}">+</div>
-      </section>  
-    </section>`
-
     return `<tr>
           <td >${food.name} </td>
           <td >$${food.price}</td>
@@ -138,8 +122,8 @@ $(function() {
 
   // {
   //   name: 'Spicy Cold Noodle',
-  //   price: 6.15, 
-  //   vendorid: 5, 
+  //   price: 6.15,
+  //   vendorid: 5,
   //   description: 'Whole wheat spicy noodles',
   //   image: 'beef_jerky.jpg'
   // }
