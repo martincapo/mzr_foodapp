@@ -18,6 +18,7 @@ const knexLogger  = require('knex-logger');
 const usersRoutes = require("./routes/users");
 const ordersRoutes = require("./routes/orders");
 const foodsRoutes = require("./routes/foods");
+const twilio = require('./twilio')
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -45,6 +46,9 @@ app.use("/api/orders", ordersRoutes(knex));
 
 // Mount all resource routes
 app.use("/api/foods", foodsRoutes(knex));
+
+// orders routes
+app.use("/orders", twilio(knex))
 
 
 // Home page
