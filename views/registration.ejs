@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>Registration page</head>
+  <body style="font-size:20px; padding:50px;">
+    <% include partials/_header %>
+    <form action="/register" method="POST" style="margin:50px;">
+      <label for="email">Enter your email:</label>
+      <input id="email" type="email" name="email" placeholder="example@mail.com" style="width: 150px">
+      <p></p>
+       <label for="password">Enter a password:</label>
+      <input id="password" type="password" name="password" placeholder="password" style="width: 150px">
+      <p></p>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
