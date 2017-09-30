@@ -6,8 +6,6 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.post("/", (req, res) => {
-    console.log(req.body);
-    console.log(typeof(req.body.user_id));
 
     let order = {
       user_id: req.body.user_id,
@@ -17,12 +15,22 @@ module.exports = (knex) => {
       order_date: new Date(new Date().getTime() * 1000)
     }
 
+
     knex('orders')
         .insert(order)
+        .returning('id')
+        .then(e => {
+          let id = (parseInt(e[0]));
+          return Promise.all(
+            req.body.food.map(f => knex('orders_food').insert({order_id: id, food_id: f.id, qty: f.qty}))
+          );
+        })
         .then(data => {
           console.log('Orders is done');
-          res.redirect('/api/orders');
-        });
+          res.redirect('/');
+        })
+
+        ;
   })
 
 // full list of orders
