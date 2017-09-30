@@ -44,14 +44,6 @@ $(function() {
     }
   
   
-    // //create order history element in html//
-    // const createOrderHistoryElement = (order) => {
-    // `<section class="past-order">
-    //    <p class="restaurant-name">${order.}</p>
-    //    <p class="datetime">${order.}</p>
-    //    <p class="price"> ${order.}</p>
-    //  </section>`
-  
     let cart = {};
     if (Cookies.get('order')) {
       cart = JSON.parse(Cookies.get('order'))
@@ -169,19 +161,53 @@ $(function() {
       $('#total-amount').text(total)
     }
  
+    // //create order history element in html//
+    // const createOrderHistoryElement = (order) => {
+    //   return `<section class="past-order">
+    //       <p class="restaurant-name">${order.}</p>
+    //       <p class="datetime">${order.}</p>
+    //       <p class="price"> ${order.}</p>
+    //     </section>`
 
-  $('#addToOrder').on('click', function(){
+    // const renderOrderHistoryElement = (newArr) => {
+    //   newArr.forEach((food) => {
+    //     const $food = createOrderElement(food)
+    //     $('#order-container').append($food)
+    //   })
+    // }
+
+
+    // const ordersCallForFoodItem = () => {
+    //   $.ajax({
+    //     method: "GET",
+    //     url: "/users/:id/orders"
+    //   }).done((foods) => {
+    
+    //   }
+
+
+
+
+  $('#addToOrder').on('click', function(event){
     // Cookies.remove('order')
     console.log('last', cart)
     Cookies.set('order', cart);
     window.location.replace("/orders/1")
+    let order = JSON.parse(Cookies.get('order'))
+    if($.isEmptyObject(order)) {
+      event.preventDefault()
+      $('#addToOrder').attr('onclick','').unbind('click')
+      alert('Please choose food quantity first!');
+    } else {
     ordersCallForFoodItem()
+    }
   })
   
     initialCall()
 
 
-    console.log('>>>>>>>>>>>>>>>', window.location)
+
+  
     if(window.location.pathname === '/orders/1') {
       ordersCallForFoodItem()
     }
