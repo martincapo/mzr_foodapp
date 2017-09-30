@@ -94,29 +94,6 @@ app.listen(PORT, () => {
   console.log("mzr_foodapp listening on port " + PORT);
 });
 
-app.get("/login/:id", (req, res) => {
-
- var check = false;
-  for(var i in users) {
-    if(req.body.email === users[i].email) {
-      check = true;
-    }
-
-    if(check) {
-      bcrypt.compare(req.body.password, users[i].password, (err, matched) => {
-        if (matched) {
-          res.cookie('user_id', users[i].id)
-          res.redirect('/menus')
-        } else {
-          res.status(403).send('password or email does not match please try again.');
-        }
-      });
-    }
-  }
-  if(check === false) {
-    res.status(403).send('password or email does not match please try again.')
-  }
-});
 
 app.get("/login", (req, res) => {
   let userId = req.session.user_id;
@@ -133,6 +110,7 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/registration", (req, res) => {
+
   let userId = req.session.user_id;
   let templateVars = {
     user: userId
@@ -148,63 +126,64 @@ app.get("/registration", (req, res) => {
 let users = {};
 
 app.post("/registration", (req, res) => {
-  for(var i in users){
-    if(req.body.email.toLowerCase() == users[i].email.toLowerCase())
-    {
-      res.status(400).send("e-mail is already existing in user's database.");
-      res.redirect("/registration");
-      return;
-    }
-  }
 
-  // this checks to see if the email entered into the form already exist in users or not
-  // if it does exist, it sends a status400 code
 
-  if (req.body.email === '' || req.body.password === '')
+  if (req.body.email === '' || req.body.password === '' || req.body.userName === '' || req.body.userPhone === '')
   {
     res.status(400).send("No email or password has been entered.");
     return;
   }
 
-  let result = generateRandomString(4, possibleValues);
-  let password = req.body.password;
-  let hashedPassword = bcrypt.hashSync(password, 10);
-  users[result] = {id: result, email: req.body.email, password: hashedPassword}
-  req.session.user_id = result;
-  console.log(users);
-  res.redirect("/menus");
-});
+    let rawEmail = req.body.email;
+
+    let userData = {
+      name: req.body.userName,
+      email: rawEmail.toLowerCase(),
+      phone_number: req.body.userPhone,
+      password: req.body.password
+    }
+
+   knex.select('email').table('users').where('email', req.body.email)
+      .then(result => {
+          if(result.length === 0) {
+            knex('users')
+                .insert(userData)
+                .then(data => {
+                  res.redirect('/login');
+                });
+            console.log('I want to see the result: ',typeof(result));
+          } else {
+            res.status(400).send("That email already exists!");
+            return;
+          }
+        })
+  })
 
 app.post("/login", (req, res) => {
-  var check = false;
-  let userId = req.session.user_id;
-  let templateVars = {
-    user: userId
-  };
 
-  for(var i in users) {
-    if(req.body.email === users[i].email) {
-      check = true;
-    }
+let rawEmail = req.body.email;
 
-    if(check) {
-      bcrypt.compare(req.body.password, users[i].password, (err, matched) => {
-        if (matched) {
-          req.session.user_id = users[i].id;
-          // res.cookie('user_id', users[i].id)
-          res.redirect('/menus')
-          return true;
-        } else {
-          res.status(403).send('password or email does not match please try again.');
-        }
-      });
-    }
-  }
-  if(check === false) {
-    res.status(403).send('password or email does not match please try again.')
-  }
-});
+knex.select('id').table('users')
+  .where('email', rawEmail.toLowerCase())
+  .where('password', req.body.password)
+  .then(result => {
+      if(result.length === 0) {
+        res.status(403).send('password or email does not match please try again.');
+      } else {
+        const id = result[0].id;
+        req.session.user_id = id;
+        res.redirect('/menus');
+      }
+  })
+})
 
+app.get("/:id", (req, res) => {
+  res.redirect('menus')
+})
+
+app.get("/vendor", (req, res) => {
+  res.render('vendor')
+})
 
 app.get("/logout", (req, res) => {
   delete req.session.user_id;

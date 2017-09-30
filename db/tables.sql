@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 DROP TABLE IF EXISTS orders_food CASCADE;
 DROP TABLE IF EXISTS food CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
@@ -46,10 +44,3 @@ CREATE TABLE orders_food (
   food_id     BIGINT       references food,
   qty        INTEGER       NOT NULL
 );
-
-
-
-
-
-
->>>>>>> 89a29059e3913a20188abece4f03c1d9e6d7fa77
