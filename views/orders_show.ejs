@@ -10,19 +10,20 @@
         $.ajax({
             method: "POST",
             url: $(this).attr('action'),
-            data: JSON.stringify({
-                user_id: 50,
+            data: JSON.stringify(
+            {
+                user_id: 6,
                 vendor_id: 5,
                 food: [
-                    {id: 110, qty: 5},
-                    {id: 111, qty: 2},
-                    {id: 112, qty: 1}
+                    {id: 10, qty: 5},
+                    {id: 12, qty: 2},
+                    {id: 13, qty: 1}
                 ]
             }),
             contentType: 'application/json',
             dataType: 'json',
             success: function(data, responseCode, jqXHR) {
-                window.location = "/orders";
+                window.location = "/";
             }
         })
       });
