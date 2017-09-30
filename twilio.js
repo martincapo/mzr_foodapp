@@ -26,7 +26,7 @@ const client = new twilio(accountSid, authToken);
 
 
 module.exports = (knex) => {
-    router.post('/order', function(request, response) {
+    router.post('/call', function(request, response) {
         // knex
         //   .select("*")
         //   .from("orders")
@@ -42,7 +42,7 @@ module.exports = (knex) => {
         let options = {
             to: vendorNumber,
             from: '+12898135702',
-            url: 'http://' + request.headers.host + '/orderMessage'
+            url: 'https://ordercall.fwd.wf/orderMessage'
         }
 
         client.calls.create(options)
@@ -59,7 +59,7 @@ module.exports = (knex) => {
 
     });
 
-    router.post('/order_history', function(request, response) {
+    router.post('/sms', function(request, response) {
         
         let userNumber = request.body.userNumber
         let orderId = request.body.order
