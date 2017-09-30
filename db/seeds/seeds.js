@@ -39,7 +39,7 @@ exports.seed = function(knex, Promise) {
 //vendors
     .then(() => {
       return Promise.all([
-        knex('vendors').insert({id: 5, name: 'Madarin', address: '1600 Pennsylvania Ave NW, Washington, DC 20500, USA', phone_number: '1-202-456-1111', password: 1234}),
+        knex('vendors').insert({id: 5, name: 'Mandarin', address: '1600 Pennsylvania Ave NW, Washington, DC 20500, USA', phone_number: '1-202-456-1111', password: 1234}),
       ]);
     })
     .then(data => console.log('Seed : Vendors done'))
@@ -71,9 +71,6 @@ exports.seed = function(knex, Promise) {
         foodArr.forEach(food => {
           let estMins = Math.floor((Math.random() * 30) + 10);
           let completed = true;
-          if(estMins > 30) {
-            completed = false;
-          }
           insetToOrders.push(knex('orders').insert({vendor_id: 5, user_id: user.id, est_mins: estMins, completed: completed, order_date: new Date(1506703781 * 1000)}));
         })
       });
@@ -87,16 +84,20 @@ exports.seed = function(knex, Promise) {
       console.log('Seed : Orders done')
     })
     .then(() => {
-
-      let insetToOrdersFood = [];
+      let insetToOrders = [];
       ordersArr.forEach(orderID => {
-        return Promise.all(
-          foodArr.map(f => knex('orders_food').insert({order_id: orderID, food_id: f.id, qty: f.qty}))
-        );
+        foodArr.forEach(food => {
+          let qty = Math.floor((Math.random() * 10) + 1);
+
+          insetToOrders.push(knex('orders_food').insert({order_id: parseInt(orderID.id), food_id: food.id, qty: qty}));
+        // return Promise.all(
+        //   foodArr.map(f => knex('orders_food').insert({order_id: orderID, food_id: f.id, qty: f.qty}))
+        // );
+        });
       });
+      return Promise.all(insetToOrders);
     })
     .then(data => {
-      ordersArr = data;
       console.log('Seed : Orders_Food done');
     })
   );
