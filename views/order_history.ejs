@@ -3,15 +3,30 @@
 </head>
 
   <body>
-    <div style = "margin-top: 30px;" id="order-history"> 
-        <section class="past-order"> 
-            <p class="restaurant-name">1</p>
-            <p class="datetime"> Sept 27, 2017 </p>
-            <p class="price"> $20.00</p>
-        </section>  
-    </div>
-    <section id="new-order"> 
-        <a class="back-button" href="/menu">GO BACK TO MENU</a>
-    </section>
+    <div class="col-lg-9">
+    <h1 style = "margin-top: 80px;"> Order History</h1>
+    <h4>
+      Client Name: <span id="username"></span>
+    </h4>
+    <p class="orderNum">
+       User ID: <%= id %>
+    </p>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <th>Order No</th>
+        <th>Restaurant</th>
+        <th>Address</th>
+        <th> Phone No</th>
+        <th>Date</th>
+        <th>Completed</th>
+        <th>Details</th>
+      </thead>
+      <tbody id="order-container">
+      </tbody>
+    </table>
+  </div>
+
   </body>
+  <script src="/scripts/orders_list.js"></script>
+
 </html>

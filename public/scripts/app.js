@@ -1,4 +1,3 @@
-
 $(function() {
 
     //create menu element in html//
@@ -152,8 +151,8 @@ $(function() {
         renderTotal(total.toFixed(2))
       })
     }
-    
-    
+
+
   const sendData = () => {
     let food = []
     let order = JSON.parse(Cookies.get('order'))
@@ -169,7 +168,7 @@ $(function() {
         data: {
           user_id: 4,
           vender_id: 5,
-          food, 
+          food,
         },
         success: function (data) {
           console.log(data)
@@ -179,7 +178,7 @@ $(function() {
         }
     })
 
-  }     
+  }
 
   const triggerTwilio = () => {
       $.ajax({
@@ -231,7 +230,7 @@ $(function() {
     ordersCallForFoodItem()
     }
   })
-  
+
   $('#place-order-button').on('click', function(event){
     event.preventDefault()
     sendData()

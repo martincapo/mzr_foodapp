@@ -76,12 +76,19 @@ app.get("/menus", (req, res) => {
 
 // Orders list of User
 app.get("/users/:id/orders", (req, res) => {
-  res.render("order_history");
+  const id = req.params.id;
+  res.render("order_history", {id});
+});
+
+app.get("/orders/:id", (req, res) => {
+  const id = req.params.id
+  res.render("order", {id})
 });
 
 // A particular Order of User
-app.get("/users/:id/orders/:id", (req, res) => {
-  res.render("orders_show");
+app.get("/users/orders/:id", (req, res) => {
+  const id = req.params.id
+  res.render("orders_show", {id});
 });
 
 //orderMessage page
@@ -190,10 +197,6 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-app.get("/orders/:id", (req, res) => {
-  const id = req.params.id
-  res.render("order", {id})
-});
 
 // app.get('/orders/order', (req, res) => {
 //   res.render("order_history")
