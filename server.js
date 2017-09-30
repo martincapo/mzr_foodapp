@@ -86,9 +86,9 @@ app.get("/orders/:id", (req, res) => {
 });
 
 // A particular Order of User
-app.get("/users/orders/:id", (req, res) => {
-  const id = req.params.id
-  res.render("orders_show", {id});
+app.get("/users/:user_id/orders/:order_id", (req, res) => {
+  const info = { user_id: req.params.user_id, order_id: req.params.order_id };
+  res.render("orders_show", info);
 });
 
 //orderMessage page
