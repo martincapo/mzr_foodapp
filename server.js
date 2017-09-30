@@ -57,7 +57,7 @@ app.use("/api/orders", ordersRoutes(knex));
 app.use("/api/food", foodRoutes(knex));
 
 // orders routes
-// app.use("/orders", twilio(knex))
+app.use("/orders", twilio(knex))
 
 
 // Home page
@@ -85,7 +85,7 @@ app.get("/users/:id/orders/:id", (req, res) => {
 });
 
 //orderMessage page
-app.get("/orderMessage", (req, res) => {
+app.post("/orderMessage", (req, res) => {
   res.render("orderMessage")
 });
 
@@ -194,6 +194,10 @@ app.get("/orders/:id", (req, res) => {
   const id = req.params.id
   res.render("order", {id})
 });
+
+// app.get('/orders/order', (req, res) => {
+//   res.render("order_history")
+// });
 
 const possibleValues = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 

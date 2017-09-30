@@ -152,6 +152,42 @@ $(function() {
         renderTotal(total.toFixed(2))
       })
     }
+    
+    
+  const sendData = () => {
+    let food = []
+    let order = JSON.parse(Cookies.get('order'))
+    for (let key in order) {
+      food.push({
+        id: key,
+        qty: order[key]
+      })
+    }
+    $.ajax({
+        method: "POST",
+        url: '/api/orders',
+        data: {
+          user_id: 4,
+          vender_id: 5,
+          food, 
+        },
+        success: function (data) {
+          console.log(data)
+        },
+        error: function (error) {
+          console.log(error)
+        }
+    })
+
+  }     
+
+  const triggerTwilio = () => {
+      $.ajax({
+        method: "POST",
+        url: '/orders/call'
+    })
+  }
+
 
     const renderTotal = (total) => {
       $('#total-amount').text(total)
@@ -176,7 +212,7 @@ $(function() {
     // const ordersCallForFoodItem = () => {
     //   $.ajax({
     //     method: "GET",
-    //     url: "/users/:id/orders"
+    //     url: "/orders/users/"
     //   }).done((foods) => {
 
     //   }
@@ -195,14 +231,17 @@ $(function() {
     ordersCallForFoodItem()
     }
   })
+  
+  $('#place-order-button').on('click', function(event){
+    event.preventDefault()
+    sendData()
+    triggerTwilio()
+  })
 
-    initialCall()
+  initialCall()
 
-
-
-
-    if(window.location.pathname === '/orders/1') {
-      ordersCallForFoodItem()
-    }
+  if(window.location.pathname === '/orders/1') {
+    ordersCallForFoodItem()
+  }
 
 })
