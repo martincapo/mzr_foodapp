@@ -32,8 +32,9 @@ module.exports = (knex) => {
 //         })
 //   })
 
+
 // order list of a particular user
-  router.get("/users/:id", (req, res) => {
+  router.get("/:user_id/orders", (req, res) => {
     knex
         .select(['orders.id', 'orders.user_id', 'orders.vendor_id', 'orders.est_mins', 'orders.completed',
       'users.name AS user_name' , 'users.email AS user_email', 'users.phone_number AS user_phone_number',
@@ -41,11 +42,42 @@ module.exports = (knex) => {
         .from('orders')
         .leftJoin('vendors', 'orders.vendor_id', 'vendors.id')
         .leftJoin('users', 'orders.user_id', 'users.id')
-        .where('orders.user_id', req.params.id)
+        .where('orders.user_id', req.params.user_id)
         .then((results) => {
           res.json(results);
         });
   })
+
+  // a particular order of a particular user
+  router.get("/:user_id/orders/:order_id", (req, res) => {
+    knex
+        .select(['orders.id', 'orders.user_id', 'orders.vendor_id', 'orders.est_mins', 'orders.completed',
+      'users.name AS user_name' , 'users.email AS user_email', 'users.phone_number AS user_phone_number',
+      'vendors.name AS vendor_name', 'vendors.address AS vendor_address', 'vendors.phone_number AS vendor_phone_number'])
+        .from('orders')
+        .leftJoin('vendors', 'orders.vendor_id', 'vendors.id')
+        .leftJoin('users', 'orders.user_id', 'users.id')
+        .where('orders.user_id', req.params.user_id)
+        .andWhere('orders.id', req.params.order_id)
+        .then((results) => {
+          res.json(results);
+        });
+  })
+
+  // food list of a particular order
+  router.get("/:user_id/orders/:order_id/food", (req, res) => {
+    knex
+        .select("*")
+        .from('orders_food')
+        .leftJoin('orders', 'orders_food.order_id', 'orders.id')
+        .leftJoin('food', 'orders_food.food_id', 'food.id')
+        .where('orders_food.order_id', req.params.order_id)
+        .then((results) => {
+          res.json(results);
+        })
+  })
+
+
   return router;
 }
 
