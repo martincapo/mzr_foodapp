@@ -1,7 +1,4 @@
 <% include partials/_header %>
-
-</head>
-
   <body>
     <div id="order-container">
     <h1 style = "margin-top: 80px;"> Order </h1>
@@ -14,10 +11,10 @@
     </div> -->
     <section>
         <p class="total">Total</p>
-        <p class="total-amount">$0.00</p>
+        <p id="total-amount"></p>
     </section>
     <section id="confirmation">
-        <a id="place-order-button" href="/userid/order">PLACE ORDER</a>
+        <a id="place-order-button" href="/users/<%=id %>/orders">PLACE ORDER</a>
         <a id="cancel-order-button" href="/menu">CANCEL ORDER</a>
 
     </section>
