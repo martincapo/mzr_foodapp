@@ -48,5 +48,3 @@ CREATE TABLE orders_food (
 
 
 
-
-
