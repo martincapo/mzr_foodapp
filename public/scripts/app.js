@@ -1,11 +1,11 @@
 
 $(function() {
-  
+
     //create menu element in html//
     const createMenuElement = (food, cart) => {
-  
+
       let quantity = cart[food.id] || 0;
-  
+
       return `<tr>
             <td class="food-name">${food.name} </td>
             <td >$${food.price}</td>
@@ -42,13 +42,13 @@ $(function() {
       //   </section>
       // </section>`
     }
-  
-  
+
+
     let cart = {};
     if (Cookies.get('order')) {
       cart = JSON.parse(Cookies.get('order'))
     }
-  
+
     const renderMenuElement = (foods) => {
       foods.forEach((food) => {
         const $menu = createMenuElement(food, cart)
@@ -58,40 +58,39 @@ $(function() {
           let quantity = $(`#quantity${food.id}`)
           let previousNumber = Number(quantity.text())
           let foodkey= "" + food.id;
-  
+
           if (foodkey in cart && cart[foodkey] > 0) {
               cart[foodkey]--;
           } else {
               cart[foodkey] = 0;
           }
-          console.log('im here', cart)
           if(previousNumber !== 0) {
             quantity.data('quantity', previousNumber - 1).text(previousNumber - 1)
           }
-  
+
         })
-  
+
         // increase
         $(`#increase${food.id}`).on('click', function(event) {
           let quantity = $(`#quantity${food.id}`)
           let previousNumber = Number(quantity.text())
           let foodkey= "" + food.id;
-  
+
           if (foodkey in cart) {
               cart[foodkey]++;
           } else {
               cart[foodkey] = 1;
           }
-  
+
           console.log('next', cart)
-  
+
           quantity.attr('data-quantity', previousNumber + 1).text(previousNumber + 1)
           quantity.text(previousNumber + 1)
-  
+
         })
       })
     }
-  
+
     // $.ajax({
     //   method: "GET",
     //   url: "/api/users"
@@ -111,11 +110,8 @@ $(function() {
         // }
       })
     }
-  
-    
-   
 
-    const createOrderElement = (food) => {  
+    const createOrderElement = (food) => {
       const price = (Number(food.price) * Number(food.quantity)).toFixed(2)
       return `<div style = "margin-top: 30px;" id="order-container">
         <section class="order">
@@ -125,14 +121,14 @@ $(function() {
         </section>
       </div>`
     }
-  
+
     const renderOrderElement = (newArr) => {
       newArr.forEach((food) => {
         const $food = createOrderElement(food)
         $('#order-container').append($food)
       })
     }
-    
+
     const ordersCallForFoodItem = () => {
       $.ajax({
         method: "GET",
@@ -160,7 +156,7 @@ $(function() {
     const renderTotal = (total) => {
       $('#total-amount').text(total)
     }
- 
+
     // //create order history element in html//
     // const createOrderHistoryElement = (order) => {
     //   return `<section class="past-order">
@@ -182,11 +178,8 @@ $(function() {
     //     method: "GET",
     //     url: "/users/:id/orders"
     //   }).done((foods) => {
-    
+
     //   }
-
-
-
 
   $('#addToOrder').on('click', function(event){
     // Cookies.remove('order')
@@ -202,14 +195,14 @@ $(function() {
     ordersCallForFoodItem()
     }
   })
-  
+
     initialCall()
 
 
 
-  
+
     if(window.location.pathname === '/orders/1') {
       ordersCallForFoodItem()
     }
-  
+
 })

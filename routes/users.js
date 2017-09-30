@@ -3,27 +3,8 @@
 const express = require('express');
 const router  = express.Router();
 
+
 module.exports = (knex) => {
-
-  router.post("/", (req, res) => {
-    console.log(req.body);
-    console.log(typeof(req.body.user_id));
-
-    let order = {
-      user_id: req.body.user_id,
-      vendor_id: req.body.vendor_id,
-      est_mins: 0,
-      completed: false,
-      order_date: new Date(new Date().getTime() * 1000)
-    }
-
-    knex('orders')
-        .insert(order)
-        .then(data => {
-          console.log('Orders is done');
-          res.redirect('/api/orders');
-        });
-  })
 
 // full list of orders
   router.get("/", (req, res) => {

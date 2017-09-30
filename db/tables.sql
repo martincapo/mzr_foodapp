@@ -44,7 +44,3 @@ CREATE TABLE orders_food (
   food_id     BIGINT       references food,
   qty        INTEGER       NOT NULL
 );
-
-
-
-
