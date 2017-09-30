@@ -1,6 +1,5 @@
 <% include partials/_header %>
   <body class="col-offset-3">
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -22,24 +21,38 @@
       </div>
     </nav>
 
-    <div class="col-lg-6">
-      <h1 style = "margin-top: 80px;"> Menu </h1>
-      <table class="table table-hover table-bordered">
-        <thead>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Description</th>
-          <th colspan="3">QTY</th>
-        </thead>
-        <tbody id="menu-container">
-        </tbody>
-      </table>
+<% if(!user) { %>
+<p>I am here!!!</p>
+<div class="YouNeedToBeLoggedIn">
+  <p> You need to be logged in and own this url to see this page </p>
+  <a href="/login">
+    <button class="login-btn"> login </button>
+  </a>
+  <a href="/registration">
+    <button class="register-btn"> register </button>
+  </a>
+</div>
+
+<% } else { %>
+  <div class="col-lg-6">
+    <h1 style = "margin-top: 80px;"> Menu </h1>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th colspan="3">QTY</th>
+      </thead>
+      <tbody id="menu-container">
+      </tbody>
+    </table>
       <div class="col-lg-6">
-          <a id="orderBtn" class="order-button" href="#">
-            <button class="btn btn-primary" id="addToOrder"> ADD TO ORDER </button>
-          </a>
+        <a id="orderBtn" class="order-button" href="#">
+          <button class="btn btn-primary" id="addToOrder"> ADD TO ORDER </button>
+        </a>
       </div>
   </div>
+<% } %>
   </body>
 </html>
 
