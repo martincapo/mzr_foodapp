@@ -20,6 +20,7 @@ const knexLogger  = require('knex-logger');
 const usersRoutes = require("./routes/users");
 const ordersRoutes = require("./routes/orders");
 const foodRoutes = require("./routes/food");
+const twilio = require('./twilio')
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -55,6 +56,9 @@ app.use("/api/orders", ordersRoutes(knex));
 // Mount all resource routes
 app.use("/api/food", foodRoutes(knex));
 
+// orders routes
+// app.use("/orders", twilio(knex))
+
 
 // Home page
 app.get("/", (req, res) => {
@@ -63,7 +67,6 @@ app.get("/", (req, res) => {
 
 // Munu page
 app.get("/menus", (req, res) => {
-
   let userId = req.session.user_id;
   let templateVars = {
     user: userId
@@ -73,7 +76,7 @@ app.get("/menus", (req, res) => {
 
 // Orders list of User
 app.get("/users/:id/orders", (req, res) => {
-  res.render("orders_index");
+  res.render("order_history");
 });
 
 // A particular Order of User
@@ -205,14 +208,13 @@ app.post("/login", (req, res) => {
 
 app.get("/logout", (req, res) => {
   delete req.session.user_id;
-  res.redirect("http://localhost:8080/");
+  res.redirect("/");
 });
 
 app.get("/orders/:id", (req, res) => {
-  res.render("order")
+  const id = req.params.id
+  res.render("order", {id})
 });
-
-
 
 const possibleValues = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -221,10 +223,6 @@ function generateRandomString(length, chars) {
   for (var i = length; i > 0; --i){
     result += chars[Math.floor(Math.random() * chars.length)];
   }
-
-
-
-
   return result;
 }
 

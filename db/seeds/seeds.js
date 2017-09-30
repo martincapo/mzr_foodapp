@@ -87,13 +87,13 @@ exports.seed = function(knex, Promise) {
       console.log('Seed : Orders done')
     })
     .then(() => {
+
       let insetToOrdersFood = [];
-      ordersArr.forEach(order => {
-        foodArr.forEach(food => {
-          insetToOrdersFood.push(knex('orders_food').insert({order_id: order.id, food_id: food.id}));
-        });
+      ordersArr.forEach(orderID => {
+        return Promise.all(
+          foodArr.map(f => knex('orders_food').insert({order_id: orderID, food_id: f.id, qty: f.qty}))
+        );
       });
-      return Promise.all(insetToOrdersFood);
     })
     .then(data => {
       ordersArr = data;
