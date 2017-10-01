@@ -1,4 +1,5 @@
 $(function() {
+  // food list from DB
   const getFoodListOfOrder = (userID, orderID) => {
      $.ajax({
           method: "GET",
@@ -10,13 +11,21 @@ $(function() {
     }
 
     const renderFoodListOfOrderElement = (newArr) => {
+       let total = [];
        newArr.forEach((food) => {
+         total.push(food.price * food.qty);
          const $food = createFoodListOfOrderElement(food)
          $('#order-details').append($food);
       })
+      let result = total.reduce((sum, num) => {
+        return sum + num;
+      });
+
+      $('#total').append(result.toFixed(2));
+
     }
 
-    //create order history element in html//
+    //create food list element in html//
     const createFoodListOfOrderElement = (food) => {
 
       return `<tr>

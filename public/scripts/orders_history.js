@@ -1,6 +1,12 @@
 $(function() {
     //create order history element in html//
     const createOrderHistoryElement = (order) => {
+      let status = '';
+      if(order.completed) {
+        status = 'completed';
+      }else {
+        status = 'pending';
+      }
 
       return `<tr>
                 <td class="orderid">${order.id}</td>
@@ -8,7 +14,7 @@ $(function() {
                 <td>${order.vendor_address}</td>
                 <td>${order.vendor_phone_number}</td>
                 <td>${order.order_date}</td>
-                <td>${order.completed}</td>
+                <td>${status}</td>
                 <td>
                     <a href="/users/${order.user_id}/orders/${order.id}" class="btn btn-success btn-sm orderDetails">
                      Details
