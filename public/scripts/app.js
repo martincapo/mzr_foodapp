@@ -123,6 +123,8 @@ $(function() {
       </div>`
     }
 
+
+    
     const renderOrderElement = (newArr) => {
       newArr.forEach((food) => {
         const $food = createOrderElement(food)
@@ -170,7 +172,6 @@ $(function() {
       vender_id: 5,
       food,
     }
-    console.log('hi', a)
     $.ajax({
         method: "POST",
         url: '/api/orders',
@@ -180,7 +181,6 @@ $(function() {
           food,
         },
         success: function (data) {
-          console.log('hihihhiihi', data)
           Cookies.remove('order')
           cart = {}
           triggerTwilio(data[0])
@@ -195,7 +195,7 @@ $(function() {
   const triggerTwilio = (id) => {
       $.ajax({
         method: "POST",
-        url: '/orders/call'.
+        url: '/orders/call',
         data: id
     })
   }
@@ -205,29 +205,6 @@ $(function() {
     $('#total-amount').text(total)
   }
 
-    // //create order history element in html//
-    // const createOrderHistoryElement = (order) => {
-    //   return `<section class="past-order">
-    //       <p class="restaurant-name">${order.}</p>
-    //       <p class="datetime">${order.}</p>
-    //       <p class="price"> ${order.}</p>
-    //     </section>`
-
-    // const renderOrderHistoryElement = (newArr) => {
-    //   newArr.forEach((food) => {
-    //     const $food = createOrderElement(food)
-    //     $('#order-container').append($food)
-    //   })
-    // }
-
-
-    // const ordersCallForFoodItem = () => {
-    //   $.ajax({
-    //     method: "GET",
-    //     url: "/orders/users/"
-    //   }).done((foods) => {
-
-    //   }
 
   $('#addToOrder').on('click', function(event){
 
@@ -257,7 +234,6 @@ $(function() {
   }
   if(userId && window.location.pathname === `/users/${userId}/orders`) {
     sendData(userId)
-
   }
 
 })

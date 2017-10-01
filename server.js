@@ -82,7 +82,7 @@ app.get("/users/:id", (req, res) => {
 // Orders list of User
 app.get("/users/:id/orders", (req, res) => {
   const id = req.params.id;
-  res.render("order_history", {id});
+  res.render("order_history", {user: id});
 });
 
 app.get("/orders/:id", (req, res) => {
@@ -105,12 +105,12 @@ app.get("/usersOrder/:id", (req, res) => {
 
 app.get("/users/:id/order/neworder", (req, res) => {
   const id = req.params.id
-  res.render("new_order", {id})
+  res.render("new_order", {user: id})
 });
 
 //orderMessage page
 app.post("/orderMessage", (req, res) => {
-  res.render("orderMessage", )
+  res.render("orderMessage")
 });
 
 
@@ -122,7 +122,7 @@ app.listen(PORT, () => {
 app.get("/login", (req, res) => {
   let userId = req.session.user_id;
   if(!userId){
-    res.render("login");
+    res.render("login", {user: userId});
   } else {
     res.redirect(`/users/${userId}`);
   }
