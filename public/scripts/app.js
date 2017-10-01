@@ -154,8 +154,8 @@ $(function() {
         renderTotal(total.toFixed(2))
       })
     }
-    
-    
+
+
   const sendData = (id) => {
     let food = []
     let order = JSON.parse(Cookies.get('order'))
@@ -175,8 +175,8 @@ $(function() {
         method: "POST",
         url: '/api/orders',
         data: {
+          vendor_id: 5,
           user_id: id,
-          vender_id: 5,
           food,
         },
         success: function (data) {
@@ -228,7 +228,7 @@ $(function() {
     //   }
 
   $('#addToOrder').on('click', function(event){
-    
+
     Cookies.set('order', cart);
     // window.location.replace("/orders/1")
     let order = JSON.parse(Cookies.get('order'))
@@ -237,7 +237,7 @@ $(function() {
       $('#addToOrder').attr('onclick','').unbind('click')
       alert('Please choose food quantity first!');
     } else {
-      ordersCallForFoodItem() 
+      ordersCallForFoodItem()
     }
   })
 

@@ -43,6 +43,7 @@ module.exports = (knex) => {
         .leftJoin('vendors', 'orders.vendor_id', 'vendors.id')
         .leftJoin('users', 'orders.user_id', 'users.id')
         .where('orders.user_id', req.params.user_id)
+        .orderBy('orders.id', 'desc')
         .then((results) => {
           res.json(results);
         });

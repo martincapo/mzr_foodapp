@@ -8,13 +8,14 @@ module.exports = (knex) => {
   router.post("/", (req, res) => {
 
     let order = {
-      user_id: req.body.user_id,
       vendor_id: req.body.vendor_id,
+      user_id: req.body.user_id,
       est_mins: 0,
       completed: false,
-      order_date: new Date(new Date().getTime() * 1000)
+      order_date: new Date().toUTCString()
     }
 
+    console.log('What am I getting here: ', order.order_date);
 
     knex('orders')
         .insert(order)
