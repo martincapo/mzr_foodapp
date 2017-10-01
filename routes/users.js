@@ -36,7 +36,7 @@ module.exports = (knex) => {
 // order list of a particular user
   router.get("/:user_id/orders", (req, res) => {
     knex
-        .select(['orders.id', 'orders.user_id', 'orders.vendor_id', 'orders.est_mins', 'orders.completed',
+        .select(['orders.id', 'orders.user_id', 'orders.vendor_id', 'orders.est_mins', 'orders.completed', 'orders.order_date',
       'users.name AS user_name' , 'users.email AS user_email', 'users.phone_number AS user_phone_number',
       'vendors.name AS vendor_name', 'vendors.address AS vendor_address', 'vendors.phone_number AS vendor_phone_number'])
         .from('orders')
@@ -51,7 +51,7 @@ module.exports = (knex) => {
   // a particular order of a particular user
   router.get("/:user_id/orders/:order_id", (req, res) => {
     knex
-        .select(['orders.id', 'orders.user_id', 'orders.vendor_id', 'orders.est_mins', 'orders.completed',
+        .select(['orders.id', 'orders.user_id', 'orders.vendor_id', 'orders.est_mins', 'orders.completed', 'orders.order_date',
       'users.name AS user_name' , 'users.email AS user_email', 'users.phone_number AS user_phone_number',
       'vendors.name AS vendor_name', 'vendors.address AS vendor_address', 'vendors.phone_number AS vendor_phone_number'])
         .from('orders')

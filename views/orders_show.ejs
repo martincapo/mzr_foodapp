@@ -1,44 +1,13 @@
 <% include partials/_header %>
 
 </head>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('form').on('submit', function(e) {
-        e.preventDefault();
-        console.log($(this).attr('action'));
-
-        $.ajax({
-            method: "POST",
-            url: $(this).attr('action'),
-            data: JSON.stringify(
-            {
-                user_id: 12,
-                vendor_id: 5,
-                food: [
-                    {id: 10, qty: 5},
-                    {id: 12, qty: 2},
-                    {id: 13, qty: 1}
-                ]
-            }),
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function(data, responseCode, jqXHR) {
-                window.location = "/";
-            }
-        })
-      });
-    })
-
-  </script>
-
   <body>
     <div class="col-lg-9">
-      <form action="/orders" method="POST">
-
-        <button type="submit" class="btn btn-danger">Orders_Food</button>
-      </form>
-      <p class="orderNum">
-        <%= id %>
+      <p class="userID">
+        <%= user_id %>
+      </p>
+      <p class="orderID">
+        <%= order_id %>
       </p>
       <h1 style = "margin-top: 80px;"> Order Details</h1>
       <h4>
@@ -47,12 +16,17 @@
       <table class="table table-hover table-bordered">
         <thead>
           <th>Food Name</th>
-          <th>Food Qty</th>
-          <th>Address</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Sub Total</th>
         </thead>
         <tbody id="order-details">
         </tbody>
       </table>
+    <a href="/users/<%= user_id %>/orders">
+      <button class="btn btn-success">Back to Order list</button>
+    </a>
     </div>
   </body>
     <script src="/scripts/orders_details.js"></script>

@@ -10,7 +10,7 @@ $(function() {
                 <td>${order.order_date}</td>
                 <td>${order.completed}</td>
                 <td>
-                    <a href="/users/orders/${order.id}" class="btn btn-success btn-sm orderDetails">
+                    <a href="/users/${order.user_id}/orders/${order.id}" class="btn btn-success btn-sm orderDetails">
                      Details
                   </a>
                 </td>
@@ -28,15 +28,15 @@ $(function() {
       $('#username').text(user_name);
 
     }
-    const ordersCallForUser = (orderID) => {
+    const ordersCallForUser = (userID) => {
       $.ajax({
         method: "GET",
-        url: `/api/orders/users/${orderID}`
+        url: `/api/users/${userID}/orders`
       }).done((orders) => {
         renderOrderHistoryElement(orders);
       })
     }
 
-    ordersCallForUser($('.orderNum').val());
+    ordersCallForUser($('.userID').text());
 
 })

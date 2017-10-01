@@ -1,8 +1,8 @@
 $(function() {
-  const getFoodListOfOrder = (orderID) => {
+  const getFoodListOfOrder = (userID, orderID) => {
      $.ajax({
           method: "GET",
-          url: `/api/orders/${orderID}`
+          url: `/api/users/${userID}/orders/${orderID}/food`
       }).done((food) => {
           renderFoodListOfOrderElement(food);
       })
@@ -20,9 +20,13 @@ $(function() {
     const createFoodListOfOrderElement = (food) => {
 
       return `<tr>
-                <td>${food.id}</td>
+                <td>${food.name}</td>
+                <td>${food.description}</td>
+                <td>${food.price}</td>
+                <td>${food.qty}</td>
+                <td>${(food.price * food.qty).toFixed(2)}</td>
               </tr>`
     }
 
-    getFoodListOfOrder($('.orderNum').val());
+    getFoodListOfOrder($('.userID').text(), $('.orderID').text());
 })
