@@ -1,5 +1,5 @@
 body { 
-    padding-top: 120px; 
+    padding-top: 100px; 
 }
 
 .navbar-brand,
@@ -14,6 +14,7 @@ body {
 .navbar-nav > li {
     padding-left:40px;
     padding-right:40px;
+    color: #fff;
 }
 
 // carousel
@@ -24,7 +25,49 @@ body {
 }
 
 //registration form
-.formContaier {
+.formContainer {
     width: 50%;
     margin: 0 auto;
+}
+
+.loginFormContainer {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.panel.panel-default {
+    height: 300px;
+    
+}
+
+#panel-body {
+    margin-top: 50px;  
+}
+
+.bodyContainer {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.navbar-inverse {
+    background-color: #000;
+    color: white;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+
+.logoPic {
+    width: 80px;
+    height: 70px;
+}
+
+.navbar-brand {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 36px;
+}
+
+.title {
+    color: white;
 }

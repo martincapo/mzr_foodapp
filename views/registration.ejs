@@ -1,34 +1,42 @@
 <% include partials/_header %>
 <body>
   <% include partials/_navbar %>
-  <div class="formContaier">
-    <form class="form-horizontal" action="/registration" method="POST">
-      <div class="form-group">
-        <label for="email" class="col-sm-3 control-label">Email:</label>
-        <div class="col-sm-9">
-          <input class="form-control" id="email" type="email" name="email" placeholder="example@mail.com">
-        </div>
+  <div class="bodyContainer">
+  <div class="panel panel-default">
+      <div class="panel-heading">Register</div>
+      <div class="panel-body">
+          <div class="formContainer">
+              <form class="form-horizontal" action="/registration" method="POST">
+                <div class="form-group">
+                  <label for="email" class="col-sm-3 control-label">Email:</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" id="email" type="email" name="email" placeholder="example@mail.com">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password" class="col-sm-3 control-label">Password:</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" id="password" type="password" name="password" placeholder="Password">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="userName" class="col-sm-3 control-label">Name:</label>
+                    <div class="col-sm-9">
+                      <input class="form-control" id="userName" name="userName" placeholder="Your Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="userPhone" class="col-sm-3 control-label">Number:</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" id="userPhone" type="number" name="userPhone" placeholder="Your Phone#">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-default pull-right">Submit</button>
+              </form>
+            </div>
       </div>
-      <div class="form-group">
-        <label for="password" class="col-sm-3 control-label">Password:</label>
-        <div class="col-sm-9">
-          <input class="form-control" id="password" type="password" name="password" placeholder="Password">
-        </div>
-      </div>
-      <div class="form-group">
-          <label for="userName" class="col-sm-3 control-label">Name:</label>
-          <div class="col-sm-9">
-            <input class="form-control" id="userName" name="userName" placeholder="Your Name">
-          </div>
-      </div>
-      <div class="form-group">
-        <label for="userPhone" class="col-sm-3 control-label">Number:</label>
-        <div class="col-sm-9">
-          <input class="form-control" id="userPhone" type="number" name="userPhone" placeholder="Your Phone#">
-        </div>
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+    </div>
   </div>
 </body>
 </html>
+

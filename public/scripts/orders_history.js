@@ -27,13 +27,14 @@ $(function() {
    const renderOrderHistoryElement = (newArr) => {
       let user_name = '';
       newArr.forEach((order) => {
+        console.log('order', order)
         const $order = createOrderHistoryElement(order)
         user_name = order.user_name;
         $('#order-container').append($order)
       })
       $('#username').text(user_name);
-
     }
+
     const ordersCallForUser = (userID) => {
       $.ajax({
         method: "GET",
@@ -42,7 +43,7 @@ $(function() {
         renderOrderHistoryElement(orders);
       })
     }
-
+    
     const procesOrder = (min) => {
       var current_progress = 0;
       var interval = setInterval(function() {
