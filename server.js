@@ -64,7 +64,7 @@ app.use("/orders", twilio(knex))
 app.get("/", (req, res) => {
   let userId = req.session.user_id;
   if(!userId) {
-    res.render("index");
+    res.render("index", {user: userId});
   } else {
     res.redirect(`/users/${userId}`)
   }
@@ -132,7 +132,7 @@ app.get("/registration", (req, res) => {
   let userId = req.session.user_id;
 
   if(!userId){
-    res.render("registration");
+    res.render("registration", {user: userId});
   } else {
     res.redirect(`/users/${userId}`)
   }

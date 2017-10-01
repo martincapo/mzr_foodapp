@@ -165,6 +165,12 @@ $(function() {
         qty: order[key]
       })
     }
+    const a = {
+      user_id: id,
+      vender_id: 5,
+      food,
+    }
+    console.log('hi', a)
     $.ajax({
         method: "POST",
         url: '/api/orders',
@@ -174,6 +180,7 @@ $(function() {
           food,
         },
         success: function (data) {
+          console.log('hihihhiihi')
           Cookies.remove('order')
           cart = {}
         },
@@ -236,7 +243,6 @@ $(function() {
 
   $('#place-order-button').on('click', function(event){
     const id = $(this).data('id')
-    event.preventDefault()
     sendData(id)
     triggerTwilio()
   })
