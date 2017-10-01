@@ -31,11 +31,9 @@ module.exports = (knex) => {
           );
         })
         .then(data => {
-          console.log('order id is: ', orderID );
-          res.json(orderID);
-        })
-
-        ;
+          console.log('orderfdsfdsafdaf id is: ', orderID );
+          res.status(200).send(orderID)
+        });
   })
 
 // full list of orders

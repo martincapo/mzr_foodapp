@@ -180,21 +180,23 @@ $(function() {
           food,
         },
         success: function (data) {
-          console.log('hihihhiihi')
+          console.log('hihihhiihi', data)
           Cookies.remove('order')
           cart = {}
+          triggerTwilio(data[0])
         },
         error: function (error) {
-          console.log(error)
+          console.log('err', JSON.stringify(error, null, 2))
         }
     })
 
   }
 
-  const triggerTwilio = () => {
+  const triggerTwilio = (id) => {
       $.ajax({
         method: "POST",
-        url: '/orders/call'
+        url: '/orders/call'.
+        data: id
     })
   }
 
@@ -241,17 +243,21 @@ $(function() {
     }
   })
 
-  $('#place-order-button').on('click', function(event){
-    const id = $(this).data('id')
-    sendData(id)
-    triggerTwilio()
-  })
+  // $('#place-order-button').on('click', function(event){
+  //   const id = $(this).data('id')
+  //   sendData(id)
+  //   triggerTwilio()
+  // })
 
   initialCall()
 
   const userId = Cookies.get('id')
   if(userId && window.location.pathname === `/users/${userId}/order/neworder`) {
     ordersCallForFoodItem()
+  }
+  if(userId && window.location.pathname === `/users/${userId}/orders`) {
+    sendData(userId)
+
   }
 
 })
