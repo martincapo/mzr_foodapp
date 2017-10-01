@@ -1,3 +1,30 @@
 body { 
-    padding-top: 70px; 
+    padding-top: 120px; 
+}
+
+.navbar-brand,
+.navbar-nav
+    li
+        a {
+            line-height: 100px;
+            height: 100px;
+            padding-top: 0;
+        }
+
+.navbar-nav > li {
+    padding-left:40px;
+    padding-right:40px;
+}
+
+// carousel
+#carousel-example-generic {
+    width: 100%; 
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+//registration form
+.formContaier {
+    width: 50%;
+    margin: 0 auto;
 }

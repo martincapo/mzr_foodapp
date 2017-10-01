@@ -98,14 +98,16 @@ $(function() {
     //     $("<div>").text(user.name).appendTo($("body"))
     //   }
     // })
-
     const initialCall = () => {
       $.ajax({
         method: "GET",
         url: "/api/food"
-      }).done((foods) => {
+      }).done((result) => {
         // for(food of foods) {
-          renderMenuElement(foods)
+          if(result.id) {
+            Cookies.set('id', result.id)
+          }
+          renderMenuElement(result.data)
         // }
       })
     }
@@ -132,7 +134,8 @@ $(function() {
       $.ajax({
         method: "GET",
         url: "/api/food"
-      }).done((foods) => {
+      }).done((result) => {
+        const foods = result.data
         let order = JSON.parse(Cookies.get('order'))
         //array of foodid
         let orderedFoods = []
@@ -151,9 +154,9 @@ $(function() {
         renderTotal(total.toFixed(2))
       })
     }
-
-
-  const sendData = () => {
+    
+    
+  const sendData = (id) => {
     let food = []
     let order = JSON.parse(Cookies.get('order'))
     for (let key in order) {
@@ -162,16 +165,24 @@ $(function() {
         qty: order[key]
       })
     }
+    const a = {
+      user_id: id,
+      vender_id: 5,
+      food,
+    }
+    console.log('hi', a)
     $.ajax({
         method: "POST",
         url: '/api/orders',
         data: {
-          user_id: 4,
+          user_id: id,
           vender_id: 5,
           food,
         },
         success: function (data) {
-          console.log(data)
+          console.log('hihihhiihi')
+          Cookies.remove('order')
+          cart = {}
         },
         error: function (error) {
           console.log(error)
@@ -188,9 +199,9 @@ $(function() {
   }
 
 
-    const renderTotal = (total) => {
-      $('#total-amount').text(total)
-    }
+  const renderTotal = (total) => {
+    $('#total-amount').text(total)
+  }
 
     // //create order history element in html//
     // const createOrderHistoryElement = (order) => {
@@ -217,29 +228,29 @@ $(function() {
     //   }
 
   $('#addToOrder').on('click', function(event){
-    // Cookies.remove('order')
-    console.log('last', cart)
+    
     Cookies.set('order', cart);
-    window.location.replace("/orders/1")
+    // window.location.replace("/orders/1")
     let order = JSON.parse(Cookies.get('order'))
     if($.isEmptyObject(order)) {
       event.preventDefault()
       $('#addToOrder').attr('onclick','').unbind('click')
       alert('Please choose food quantity first!');
     } else {
-    ordersCallForFoodItem()
+      ordersCallForFoodItem() 
     }
   })
 
   $('#place-order-button').on('click', function(event){
-    event.preventDefault()
-    sendData()
+    const id = $(this).data('id')
+    sendData(id)
     triggerTwilio()
   })
 
   initialCall()
 
-  if(window.location.pathname === '/orders/1') {
+  const userId = Cookies.get('id')
+  if(userId && window.location.pathname === `/users/${userId}/order/neworder`) {
     ordersCallForFoodItem()
   }
 

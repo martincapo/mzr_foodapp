@@ -1,6 +1,6 @@
 <% include partials/_header %>
   <body class="col-offset-3">
-
+<% include partials/_navbar %>
 <% if(!user) { %>
 <div class="YouNeedToBeLoggedIn">
   <p> You need to be logged in and own this url to see this page </p>
@@ -25,8 +25,8 @@
       </tbody>
     </table>
       <div class="col-lg-6">
-        <a id="orderBtn" class="order-button" href="#">
-          <button class="btn btn-primary" id="addToOrder"> ADD TO ORDER </button>
+        <a href="/users/<%=user %>/order/neworder">
+          <button class="btn btn-primary" id="addToOrder" data-id="<%=user %>"> ADD TO ORDER </button>
         </a>
       </div>
   </div>
