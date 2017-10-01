@@ -62,11 +62,16 @@ app.use("/orders", twilio(knex))
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  let userId = req.session.user_id;
+  if(!userId) {
+    res.render("index");
+  } else {
+    res.redirect(`/users/${userId}`)
+  }
 });
 
-// Munu page
-app.get("/menus", (req, res) => {
+// Menu page
+app.get("/users/:id", (req, res) => {
   let userId = req.session.user_id;
   let templateVars = {
     user: userId
@@ -84,6 +89,18 @@ app.get("/users/:id/orders/:id", (req, res) => {
   res.render("orders_show");
 });
 
+app.get("/usersOrder/:id", (req, res) => {
+  console.log('im calledddddd')
+  const id = req.params.id
+  const url = `/users/${id}/order/neworder`
+  res.redirect(url)
+})
+
+app.get("/users/:id/order/neworder", (req, res) => {
+  const id = req.params.id
+  res.render("new_order", {id})
+});
+
 //orderMessage page
 app.post("/orderMessage", (req, res) => {
   res.render("orderMessage")
@@ -97,37 +114,26 @@ app.listen(PORT, () => {
 
 app.get("/login", (req, res) => {
   let userId = req.session.user_id;
-  let templateVars = {
-    user: userId
-  };
-
-  if(users[req.session.user_id] == undefined){
-    res.render("login", templateVars);
+  if(!userId){
+    res.render("login");
   } else {
-    res.redirect("/menus");
-    // res.render("menus", templateVars)
+    res.redirect(`/users/${userId}`);
   }
 });
 
 app.get("/registration", (req, res) => {
-
   let userId = req.session.user_id;
-  let templateVars = {
-    user: userId
-  };
 
-  if(users[req.session.user_id] == undefined){
-    res.render("registration", templateVars);
+  if(!userId){
+    res.render("registration");
   } else {
-    res.render("menus", templateVars)
+    res.redirect(`/users/${userId}`)
   }
 });
 
 let users = {};
 
 app.post("/registration", (req, res) => {
-
-
   if (req.body.email === '' || req.body.password === '' || req.body.userName === '' || req.body.userPhone === '')
   {
     res.status(400).send("No email or password has been entered.");
@@ -151,7 +157,6 @@ app.post("/registration", (req, res) => {
                 .then(data => {
                   res.redirect('/login');
                 });
-            console.log('I want to see the result: ',typeof(result));
           } else {
             res.status(400).send("That email already exists!");
             return;
@@ -172,13 +177,9 @@ knex.select('id').table('users')
       } else {
         const id = result[0].id;
         req.session.user_id = id;
-        res.redirect('/menus');
+        res.redirect(`/users/${id}`);
       }
   })
-})
-
-app.get("/:id", (req, res) => {
-  res.redirect('menus')
 })
 
 app.get("/vendor", (req, res) => {
@@ -188,11 +189,6 @@ app.get("/vendor", (req, res) => {
 app.get("/logout", (req, res) => {
   delete req.session.user_id;
   res.redirect("/");
-});
-
-app.get("/orders/:id", (req, res) => {
-  const id = req.params.id
-  res.render("order", {id})
 });
 
 // app.get('/orders/order', (req, res) => {
