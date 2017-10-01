@@ -56,7 +56,7 @@ $(function() {
       }, min*1000);
     }
 
-    ordersCallForUser($('.userID').text());
+    ordersCallForUser($(".userID").data("userID"));
     procesOrder(1);
 
 })
