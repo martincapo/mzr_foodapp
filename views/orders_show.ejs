@@ -3,12 +3,8 @@
 </head>
   <body>
     <div class="col-lg-9">
-      <p class="userID">
-        <%= user_id %>
-      </p>
-      <p class="orderID">
-        <%= order_id %>
-      </p>
+      <p class="userID" data-uID="<%= user_id %>"></p>
+      <p class="orderID" data-order="<%= order_id %>"></p>
       <h1 style = "margin-top: 80px;"> Order Details</h1>
       <h4>
         Client Name: <span id="username"></span>

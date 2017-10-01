@@ -37,5 +37,5 @@ $(function() {
               </tr>`
     }
 
-    getFoodListOfOrder($('.userID').text(), $('.orderID').text());
+    getFoodListOfOrder($('.userID').data('uID'), $('.orderID').data('order'));
 })
