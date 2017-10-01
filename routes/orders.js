@@ -14,24 +14,26 @@ module.exports = (knex) => {
       completed: false,
       order_date: new Date().toUTCString()
     }
+    let orderID = [];
 
     console.log('What am I getting here: ', order.order_date);
 
     knex('orders')
         .insert(order)
         .returning('id')
-        .then(e => {
-          let id = (parseInt(e[0]));
+        .then(id => {
+          orderID = id;
+        })
+        .then(() => {
+          let id = (parseInt(orderID));
           return Promise.all(
             req.body.food.map(f => knex('orders_food').insert({order_id: id, food_id: f.id, qty: f.qty}))
           );
         })
         .then(data => {
-          console.log('Orders is done');
-          res.redirect('/');
-        })
-
-        ;
+          console.log('orderfdsfdsafdaf id is: ', orderID );
+          res.status(200).send(orderID)
+        });
   })
 
 // full list of orders
