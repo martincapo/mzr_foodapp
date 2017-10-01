@@ -1,24 +1,28 @@
 <% include partials/_header %>
   <body>
+<% include partials/_navbar %>
     <div id="order-container">
     <h1 style = "margin-top: 80px;"> Order </h1>
-    <!-- <div style = "margin-top: 30px;" id="order-container">
-        <section class="order">
-            <p class="food-order-quantity">1</p>
-            <p class="food-order-name">pizza</p>
-            <p class="food-order-price">$14.99 </p>
-        </section>
-    </div> -->
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Quantity</th>
+                <th>Dish</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        </tbody>
+        </tbody>
+    </table>
     <section>
         <p class="total">Total</p>
         <p id="total-amount"></p>
     </section>
     <section id="confirmation">
-        <a id="place-order-button" data-id="<%=id %>" href="/users/<%=id %>/orders">PLACE ORDER</a>
+        <a id="place-order-button" data-id="<%=user %>" href="/users/<%=user %>/orders">PLACE ORDER</a>
         <a id="cancel-order-button" href="/menu">CANCEL ORDER</a>
 
     </section>
   </body>
 </html>
-
-
+   

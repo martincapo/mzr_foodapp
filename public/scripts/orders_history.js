@@ -16,7 +16,7 @@ $(function() {
                 <td>${order.order_date}</td>
                 <td>${status}</td>
                 <td>
-                    <a href="/users/${order.user_id}/orders/${order.id}" class="btn btn-success btn-sm orderDetails">
+                    <a href="/users/${order.user_id}/orders/${order.id}" class="btn btn-info btn-sm orderDetails">
                      Details
                   </a>
                 </td>
@@ -27,13 +27,14 @@ $(function() {
    const renderOrderHistoryElement = (newArr) => {
       let user_name = '';
       newArr.forEach((order) => {
+        console.log('order', order)
         const $order = createOrderHistoryElement(order)
         user_name = order.user_name;
         $('#order-container').append($order)
       })
       $('#username').text(user_name);
-
     }
+
     const ordersCallForUser = (userID) => {
       $.ajax({
         method: "GET",
@@ -56,9 +57,7 @@ $(function() {
       }, min*1000);
     }
 
-    ordersCallForUser($(".userID").data("userID"));
+    ordersCallForUser($('.userID').text());
     procesOrder(1);
 
 })
-
-
