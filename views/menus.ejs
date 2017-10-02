@@ -12,24 +12,58 @@
   </a>
 </div>
 <% } else { %>
-  <div class="col-lg-6">
+  <div class="container">
     <h1 style = "margin-top: 80px;"> Menu </h1>
-    <table class="table table-hover table-bordered">
-      <thead>
-        <th>Dish</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th colspan="3">QTY</th>
-      </thead>
-      <tbody id="menu-container">
-      </tbody>
-    </table>
-      <div class="col-lg-6">
+      <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Dish</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody id="menu-container">
+        </tbody>
+      </table>
+      <div class="pull-right">
         <a id="addToOrder" class="btn btn-danger" role="button" href="/users/<%=user %>/order/neworder">
-            PLACE ORDER
+            ADD TO ORDER
         </a>
       </div>
   </div>
+  <hr>
+  <div class="container">
+      <div class="row">
+        <div class="row">
+          <div class="col-lg-4 col-sm-4 col-6"><a href="#" title="Image 1"><img src="/images/1.jpg" class="thumbnail img-responsive"></a></div>
+          <div class="col-lg-4 col-sm-4 col-6"><a href="#" title="Image 2"><img src="/images/8.jpg" class="thumbnail img-responsive"></a></div>
+          <div class="col-lg-4 col-sm-4 col-6"><a href="#" title="Image 3"><img src="/images/3.jpg" class="thumbnail img-responsive"></a></div>
+          <div class="col-lg-4 col-sm-4 col-6"><a href="#" title="Image 4"><img src="/images/4.jpg" class="thumbnail img-responsive"></a></div>
+          <div class="col-lg-4 col-sm-4 col-6"><a href="#" title="Image 5"><img src="/images/5.jpg" class="thumbnail img-responsive"></a></div>
+          <div class="col-lg-4 col-sm-4 col-6"><a href="#" title="Image 6"><img src="/images/6.jpg" class="thumbnail img-responsive"></a></div>
+          <div class="col-lg-4 col-sm-4 col-6"><a href="#" title="Image 8"><img src="/images/7.jpg" class="thumbnail img-responsive"></a></div>
+          <div class="col-lg-4 col-sm-4 col-6"><a href="#" title="Image 9"><img src="/images/2.jpg" class="thumbnail img-responsive"></a></div>
+          <div class="col-lg-4 col-sm-4 col-6"><a href="#" title="Image 10"><img src="/images/9.jpg" class="thumbnail img-responsive"></a></div>
+        </div>
+      </div>
+    </div>
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3 class="modal-title">Heading</h3>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+       </div>
+      </div>
+    </div>
 <% } %>
   </body>
 </html>

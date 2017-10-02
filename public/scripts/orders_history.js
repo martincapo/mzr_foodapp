@@ -33,6 +33,7 @@ $(function() {
         $('#order-container').append($order)
       })
       $('#username').text(user_name);
+      $('#myModal').modal('show')
     }
 
     const ordersCallForUser = (userID) => {

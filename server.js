@@ -108,12 +108,6 @@ app.get("/users/:id/order/neworder", (req, res) => {
   res.render("new_order", {user: id})
 });
 
-//orderMessage page
-app.post("/orderMessage", (req, res) => {
-  res.render("orderMessage")
-});
-
-
 app.listen(PORT, () => {
   console.log("mzr_foodapp listening on port " + PORT);
 });

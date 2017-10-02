@@ -85,3 +85,17 @@ body {
     flex-direction: column;
     align-items: flex-end;
 }
+
+ 
+#myModal {
+    top: 34%;
+    outline: none;
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-dialog {width:600px;}
+.thumbnail {margin-bottom:6px;}

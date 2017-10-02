@@ -9,37 +9,22 @@ $(function() {
             <td class="food-name">${food.name} </td>
             <td >$${food.price}</td>
             <td >${food.description}</td>
-            <td >
-              <button type="button" id="decrease${food.id}" class="btn btn-default btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-              </button>
-            </td>
-            <td class="quantityClass">
-               <p data-quantity=0  data-foodid=${food.id} class="quantity" id="quantity${food.id}">${quantity}</p>
-            </td>
-            <td>
-              <button type="button" id="increase${food.id}" class="btn btn-default btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-              </button>
+            <td class="buttonGroup">
+              <div>
+                <button type="button" id="decrease${food.id}" class="btn btn-default btn-xs" aria-label="Left Align">
+                  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="quantityClass">
+                <p data-quantity=0  data-foodid=${food.id} class="quantity" id="quantity${food.id}">${quantity}</p>
+              </div>
+              <div>
+                <button type="button" id="increase${food.id}" class="btn btn-default btn-xs" aria-label="Left Align">
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
               </div>
             </td>
-            </tr>
-          `
-      // return `<section style = "margin-top: 30px;" class="menu">
-      //    <section class="item-picture"> <img id="item-picture" src=""></section>
-      //    <div class="food-body">
-      //    <div class="food-title">
-      //      <p class="food-name">${food.name} </p>
-      //      <p class="food-price">$${food.price}</p>
-      //    </div>
-      //    <section class="food-description">${food.description}</section>
-      //   </div>
-      //   <section class="quantityButton">
-      //    <div class="decrease" id="decrease${food.id}">-</div>
-      //    <div data-quantity=1 class="quantity" id="quantity${food.id}">0</div>
-      //    <div class="increase" id="increase${food.id}">+</div>
-      //   </section>
-      // </section>`
+        </tr>`
     }
 
 
@@ -180,7 +165,7 @@ $(function() {
         success: function (data) {
           Cookies.remove('order')
           cart = {}
-          triggerTwilio(data[0])
+          triggerTwilio(id, data[0])
         },
         error: function (error) {
           console.log('err', JSON.stringify(error, null, 2))
@@ -189,13 +174,23 @@ $(function() {
 
   }
 
-  const triggerTwilio = (id) => {
+  const triggerTwilio = (userId, orderId) => {
       $.ajax({
         method: "POST",
         url: '/orders/call',
-        data: id
+        data: {userId, orderId }
     })
   }
+
+  const triggerSMS = (orderId, time, userNumber) => {
+      $.ajax({
+        method: "POST",
+        url: '/orders/sms',
+        data: {orderId, time, userNumber}
+      })
+  }
+
+
 
 
   const renderTotal = (total) => {
@@ -217,11 +212,17 @@ $(function() {
     }
   })
 
-  // $('#place-order-button').on('click', function(event){
-  //   const id = $(this).data('id')
-  //   sendData(id)
-  //   triggerTwilio()
-  // })
+  $('.thumbnail').click(function(){
+  	$('.modal-body').empty();
+  	var title = $(this).parent('a').attr("title");
+  	$('.modal-title').html(title);
+  	$($(this).parents('div').html()).appendTo('.modal-body');
+  	$('#myModal').modal({show:true});
+  });
+
+  $('#submitTime').on('click', function(event) {
+    triggerSMS (65, 10, '+16478856109')
+  })
 
   initialCall()
 

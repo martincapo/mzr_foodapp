@@ -7,7 +7,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.
 const authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
 
 const client = new twilio(accountSid, authToken);
-
+const VoiceResponse = twilio.twiml.VoiceResponse;
 
 
 // client.calls.create({
@@ -27,22 +27,15 @@ const client = new twilio(accountSid, authToken);
 
 module.exports = (knex) => {
     router.post('/call', function(request, response) {
-        // knex
-        //   .select("*")
-        //   .from("orders")
-        //   .then(result => {
-        //     response.json(result)
-        //   })
-        //   .catch(err => {
-        //       console.log(err)
-        //   })
+        const userId = request.body.userId
+        const orderId = request.body.orderId
 
         let vendorNumber = '+16478856109'
 
         let options = {
             to: vendorNumber,
             from: '+12898135702',
-            url: 'https://ordercall.fwd.wf/orderMessage'
+            url: 'https://ordercall.fwd.wf/orders/orderMessage/' + userId + '/' + orderId
         }
 
         client.calls.create(options)
@@ -61,8 +54,8 @@ module.exports = (knex) => {
 
     router.post('/sms', function(request, response) {
         
-        let userNumber = request.body.userNumber
-        let orderId = request.body.order
+        let userNumber = '+1' + request.body.userNumber.split('-').join('')
+        let orderId = request.body.orderId
         let time = request.body.time
 
         client.messages.create({
@@ -78,5 +71,35 @@ module.exports = (knex) => {
         })
     });
 
+    router.post("/orderMessage/:userId/:orderId", (req, res) => {
+        const userId = req.params.userId
+        const orderId = req.params.orderId
+        knex
+            .select(['food.name AS food_name' , 'orders_food.qty AS order_quantity'])
+            .from('orders_food')
+            .leftJoin('orders', 'orders_food.order_id', 'orders.id')
+            .leftJoin('food', 'orders_food.food_id', 'food.id')
+            .where('orders.user_id', userId)
+            .andWhere('orders.id', orderId)
+            .then((data) => {
+                let message = ''
+                data.forEach((food, index) => {
+                    if(index === data.length) {
+                        message += `${food.order_quantity} ${food.food_name}.`
+                    } else {
+                        message += `${food.order_quantity} ${food.food_name}, `
+                    }
+                })
+                var twimlResponse = new VoiceResponse();
+                
+                twimlResponse.say(`A new order has been placed, order details are as follows, ${message}`,
+                                    { voice: 'alice' });
+        
+                
+                res.send(twimlResponse.toString());
+            })
+        
+        
+    })
     return router
 }
