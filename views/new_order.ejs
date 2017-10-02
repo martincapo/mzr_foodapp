@@ -1,28 +1,34 @@
 <% include partials/_header %>
   <body>
 <% include partials/_navbar %>
-    <div id="order-container">
-    <h1 style = "margin-top: 80px;"> Order </h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Quantity</th>
-                <th>Dish</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        </tbody>
-        </tbody>
-    </table>
-    <section>
-        <p class="total">Total</p>
-        <p id="total-amount"></p>
-    </section>
-    <section id="confirmation">
-        <a id="place-order-button" data-id="<%=user %>" href="/users/<%=user %>/orders">PLACE ORDER</a>
-        <a id="cancel-order-button" href="/menu">CANCEL ORDER</a>
-
-    </section>
+    <div class="container" id="order-container">
+        <h1 style = "margin-top: 80px;"> Order </h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Dish</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="eachElement">
+            </tbody>
+        </table>
+        <div id="bottom">
+            <section id="confirmInfo">
+                <p class="total">Total</p>
+                <p id="total-amount">$</p>
+            </section>
+            <section id="confirmation">
+                <a id="place-order-button" class="btn btn-danger" role="button" data-id="<%=user %>" href="/users/<%=user %>/orders">
+                    PLACE ORDER
+                </a>
+                <a id="cancel-order-button" class="btn btn-danger" role="button" href="/users/<%=user %>">
+                    CANCEL ORDER
+                </a>
+            </section>
+        </div>
+    </div>
   </body>
 </html>
    

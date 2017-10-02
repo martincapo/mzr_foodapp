@@ -71,3 +71,17 @@ body {
 .title {
     color: white;
 }
+
+#bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#confirmInfo {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
