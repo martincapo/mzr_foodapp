@@ -41,6 +41,7 @@ $(function() {
         url: `/api/users/${userID}/orders`
       }).done((orders) => {
         renderOrderHistoryElement(orders);
+        // createModal()
       })
     }
 

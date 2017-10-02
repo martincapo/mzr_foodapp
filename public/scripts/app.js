@@ -114,21 +114,18 @@ $(function() {
 
     const createOrderElement = (food) => {
       const price = (Number(food.price) * Number(food.quantity)).toFixed(2)
-      return `<div style = "margin-top: 30px;" id="order-container">
-        <section class="order">
-          <p class="food-order-quantity">${food.quantity}</p>
-          <p class="food-order-name">${food.name}</p>
-          <p class="food-order-price">$${price}</p>
-        </section>
-      </div>`
+      return ` <tr class="order">
+          <td class="food-order-quantity">${food.quantity}</td>
+          <td class="food-order-name">${food.name}</td>
+          <td class="food-order-price">$${price}</td>
+      </tr>`
     }
-
 
     
     const renderOrderElement = (newArr) => {
       newArr.forEach((food) => {
         const $food = createOrderElement(food)
-        $('#order-container').append($food)
+        $('#eachElement').append($food)
       })
     }
 
@@ -202,7 +199,7 @@ $(function() {
 
 
   const renderTotal = (total) => {
-    $('#total-amount').text(total)
+    $('#total-amount').append(total)
   }
 
 
@@ -216,7 +213,7 @@ $(function() {
       $('#addToOrder').attr('onclick','').unbind('click')
       alert('Please choose food quantity first!');
     } else {
-      ordersCallForFoodItem()
+        ordersCallForFoodItem()
     }
   })
 
@@ -237,3 +234,5 @@ $(function() {
   }
 
 })
+
+
