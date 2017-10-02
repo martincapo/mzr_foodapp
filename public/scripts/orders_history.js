@@ -60,6 +60,6 @@ $(function() {
     }
 
     ordersCallForUser($('.userID').data('id'));
-    procesOrder(1);
+    procesOrder(10);
 
 })

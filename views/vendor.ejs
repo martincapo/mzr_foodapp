@@ -6,6 +6,7 @@
    <meta http-equiv="refresh" content="120" />
    <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
@@ -40,18 +41,16 @@
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav">
-      <h4>Restaurant WOK</h4>
+      <h4 id="restaurantName">WOK</h4>
       <ul class="nav nav-pills nav-stacked">
-        <li ><a href="#section1">Peding Orders</a></li>
-        <li><a href="#section2">Completed Orders</a></li>
-      </ul><br>
+       </ul><br>
       <div class="input-group">
 
       </div>
     </div>
 
     <div class="col-sm-9" name="section1">
-      <h4>PENDING ORDERS</h4>
+      <h4>ORDERS</h4>
       <hr>
       <table class="table table-hover">
         <thead>
@@ -75,7 +74,7 @@
               <form method="post" action="/orders/sms">
               <input type="hidden" name="userNumber" value="<%=JSON.parse(data)[i].phone_number %>">
               <input type="text" name="time"  placeholder="mins" >
-              <input type="hidden"  name="orderId" value="<%=JSON.parse(data)[i].phone_number %>">
+              <input type="hidden"  name="orderId" value="<%=JSON.parse(data)[i].id %>">
               <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> send</button>
               </form>
             </td>

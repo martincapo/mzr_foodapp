@@ -15,10 +15,12 @@
                 <img class="logoPic" src="/images/xixi.png" style="display: inline-block;">
                 <span class="title">WOK</span>
             </a>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
             <li><a href="/registration">REGISTER</a></li>
             <li><a href="/login">LOGIN</a></li>
         </ul>
-        </div><!--/.nav-collapse -->
+        </div>
     </div>
 </nav>
 <% } else { %>
@@ -33,16 +35,17 @@
         </button>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-            <a class="navbar-brand" href="/">
-                <img class="logoPic" src="/images/xixi.png" style="display: inline-block;">
-                <span class="title">WOK</span>
-            </a>
-            <li><a href="/users/<%=user %>">MENU</a></li>
-            <li><a href="/users/<%=user %>/orders">ORDER</a></li>
-            <li><a href="/logout">LOGOUT</a></li>
-        </ul>
-        </div><!--/.nav-collapse -->
+            <ul class="nav navbar-nav">
+                <a class="navbar-brand" href="/">
+                    <img class="logoPic" src="/images/xixi.png" style="display: inline-block;">
+                    <span class="title">WOK</span>
+                </a>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/users/<%=user %>">MENU</a></li>
+                <li><a href="/logout">LOGOUT</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 <% } %>
