@@ -1,10 +1,97 @@
-<p>Client id: 4</p>
-<p>Client email: gurlz_rule_boyz_drool@yahoo.com</p>
-<p>Client phone: 1-416-502-2869</p>
-<p>Ordered at: 12:45 PM August 12 2017</p>
-<p>food name: Kung Pao Chicken</p>
-<p>quantity: 4</p>
-<p>food name: Ma po Tofu</p>
-<p>quantity: 2</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> </title>
+  <meta charset="utf-8">
+   <meta http-equiv="refresh" content="120" />
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
 
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
 
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>Restaurant WOK</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li ><a href="#section1">Peding Orders</a></li>
+        <li><a href="#section2">Completed Orders</a></li>
+      </ul><br>
+      <div class="input-group">
+
+      </div>
+    </div>
+
+    <div class="col-sm-9" name="section1">
+      <h4>PENDING ORDERS</h4>
+      <hr>
+      <table class="table table-hover">
+        <thead>
+          <th>Order No</th>
+          <th>Date</th>
+          <th>Client Tel</th>
+          <th>Status</th>
+        </thead>
+        <tbody>
+        <% for(var i=0; i < JSON.parse(data).length; i++) { %>
+          <tr>
+            <td>c</td>
+            <td><%=JSON.parse(data)[i].order_date %></td>
+            <td><%=JSON.parse(data)[i].phone_number %></td>
+        <% if(JSON.parse(data)[i].completed) { %>
+            <td><button  class="btn btn-success disabled">Completed</button></td>
+            <td><%=JSON.parse(data)[i].est_mins %> mins</td>
+        <% }else{ %>
+            <td><button onclick="myfunction()" class="btn btn-danger">Pending</button></td>
+            <td>
+              <form method="post" action="/orders/sms">
+              <input type="hidden" name="userNumber" value="<%=JSON.parse(data)[i].phone_number %>">
+              <input type="text" name="time"  placeholder="mins" >
+              <input type="hidden"  name="orderId" value="<%=JSON.parse(data)[i].phone_number %>">
+              <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> send</button>
+              </form>
+            </td>
+          </tr>
+        <% } %>
+        <% } %>
+        </tbody>
+      </table>
+    <div>
+</div>
+<script type="text/javascript">
+  function myfuntion() {
+    $('.btn-danger').click(function() {
+      $(this).toggleClass('btn-sucess');
+    });
+  }
+</script>
+</body>
+</html>
