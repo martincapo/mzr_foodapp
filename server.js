@@ -167,24 +167,31 @@ app.post("/registration", (req, res) => {
 
 app.post("/login", (req, res) => {
 
-let rawEmail = req.body.email;
+  let rawEmail = req.body.email;
 
-knex.select('id').table('users')
-  .where('email', rawEmail.toLowerCase())
-  .where('password', req.body.password)
-  .then(result => {
-      if(result.length === 0) {
-        res.status(403).send('password or email does not match please try again.');
-      } else {
-        const id = result[0].id;
-        req.session.user_id = id;
-        res.redirect(`/users/${id}`);
-      }
-  })
+  knex.select('id').table('users')
+    .where('email', rawEmail.toLowerCase())
+    .where('password', req.body.password)
+    .then(result => {
+        if(result.length === 0) {
+          res.status(403).send('password or email does not match please try again.');
+        } else {
+          const id = result[0].id;
+          req.session.user_id = id;
+          res.redirect(`/users/${id}`);
+        }
+    })
 })
 
+const vendorsDB = require("./routes/vendors.js")(knex);
+
+
+
 app.get("/vendor", (req, res) => {
-  res.render('vendor')
+  vendorsDB.getAllOrders(function(data){
+    res.render('vendor', {data: JSON.stringify(data)});
+  });
+
 })
 
 app.get("/logout", (req, res) => {

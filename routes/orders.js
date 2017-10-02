@@ -66,6 +66,20 @@ module.exports = (knex) => {
           res.json(results);
         })
   })
+  // router.get("/test/test", (req, res) => {
+
+  //   knex
+  //           .select(['food.name AS food_name' , 'orders_food.qty AS order_quantity'])
+  //           .from('orders_food')
+  //           .leftJoin('orders', 'orders_food.order_id', 'orders.id')
+  //           .leftJoin('food', 'orders_food.food_id', 'food.id')
+  //           .where('orders.user_id', 5)
+  //           .andWhere('orders.id', 60)
+  //           .then((data) => {
+  //             res.json(data);
+
+  //           })
+  //  })
 
   return router;
 }
