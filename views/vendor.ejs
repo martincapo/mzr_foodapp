@@ -63,7 +63,7 @@
         <tbody>
         <% for(var i=0; i < JSON.parse(data).length; i++) { %>
           <tr>
-            <td>c</td>
+            <td><%=JSON.parse(data)[i].order_id %></td>
             <td><%=JSON.parse(data)[i].order_date %></td>
             <td><%=JSON.parse(data)[i].phone_number %></td>
         <% if(JSON.parse(data)[i].completed) { %>

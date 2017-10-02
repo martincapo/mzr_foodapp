@@ -54,7 +54,7 @@ module.exports = (knex) => {
 
     router.post('/sms', function(request, response) {
         
-        let userNumber = '+1' + request.body.userNumber.split('-').join('')
+        let userNumber = '+1' + request.body.userNumber
         let orderId = request.body.orderId
         let time = request.body.time
 
