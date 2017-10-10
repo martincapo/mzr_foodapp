@@ -1,4 +1,4 @@
-# Node Skeleton
+# Food Pick-up Ordering
 
 ## Project Setup
 
